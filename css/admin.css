@@ -1,0 +1,404 @@
+.head{
+    height: 80px;
+    background: linear-gradient(to bottom, transparent 10%, rgba(17, 17, 17, 0.48));
+    border-bottom: 1px solid white;
+}
+
+body{
+    font-family: 'Lobster', sans-serif;
+    color: white;
+    text-align: center;
+    transition: 0.4s;
+}
+
+.container-fluid, .cabinet{
+    min-height: 100vh;
+    padding: 0;
+    background: rgba(243, 243, 243, 0.52);
+}
+
+
+
+.cabinet{
+    background: #fff;
+}
+
+
+.cabinet .col-lg-3{
+    padding: 10px 10px;
+}
+
+.cabinet .head{
+    background: #373f51;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+
+.lk-c{
+    color: #333;
+    position: absolute;
+    left: calc(50% - 120px);
+    top: calc(50% - 120px);
+}
+
+.lk-c span{
+    font-size: 1.9em;
+
+}
+
+.lk-c i{
+    font-size: 2.9em;
+    padding-top: 11px;
+    width: 45px;
+    height: 45px;
+    margin-bottom: 5px;
+}
+
+.circle{
+    position: absolute;
+    text-align: center;
+}
+
+.logo-lk img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.logo-lk{
+    float: left;
+    font-size: 1.5em;
+    height: 60px;
+    width: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.menu-point{
+    float: right;
+    margin-right: 60px;
+    height: 100%;
+    color: #000;
+}
+
+.menu-point span{
+    font-size: 2em;
+    margin: 0 20px;
+}
+
+
+.photo{
+    height: 250px;
+    background: #333;
+    overflow: hidden;
+    background: url("../img/p3.JPG");
+    background-size: cover;
+    box-shadow: 0 0 1px #333;
+    border-radius: 3px;
+}
+
+
+.cabinet .container{
+    padding-top: 20px;
+}
+
+.top-ph-panel{
+    height: 30px;
+    /*background: rgba(51, 51, 51, 0.09);*/
+    padding: 6px 6px;
+}
+
+.top-ph-panel img{
+    float: left;
+    width: 18px;
+}
+
+.number-ph-like{
+    font-size: 1.1em;
+    height: 50px;
+    width: 50px;
+    float: right;
+    position: relative;
+    border-radius: 50%;
+    background: rgba(51, 51, 51, 0.56);
+    padding-top: 19px;
+    padding-right: 10px;
+    left: 22%;
+    top: -190%;
+    transform: rotate(180deg);
+
+}
+
+.number-ph-like-hover{
+    left: 20px;
+    top: -100%;
+    transform: rotate(360deg);
+}
+
+.photo .fa-clock-o,
+.photo .fa-minus-circle{
+    width: calc(100% - 30px);
+    height: 100%;
+    position: absolute;
+    left: 15px;
+    background: rgba(51, 51, 51, 0.52);
+    padding-top: 80px;
+    font-size: 6em;
+    color: rgba(0, 0, 0, 0.64);
+    display: none;
+}
+
+.cabinet .fa-plus-square-o,
+.add-photos .fa-plus-square-o{
+    font-size: 15em;
+    padding-top: 30px;
+    color: rgba(51, 51, 51, 0.78);
+    cursor: pointer;
+}
+.cabinet .fa-plus-square-o:hover{
+    color: rgba(51, 51, 51, 0.91);
+}
+
+
+.personal-info{
+    float: left;
+    margin-left: 30px;
+    background: rgba(70, 78, 97, 0.82);
+    font-size: 1.3em;
+    padding-left: 13px;
+    border-radius: 3px;
+
+}
+
+.personal-info p{
+    margin: 0;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 300px;
+    text-overflow: ellipsis;
+}
+
+
+.personal-info .fa{
+    float: left;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.37);
+    border-radius: 3px;
+    width: 30px;
+    margin-left: 13px;
+    padding-top: 20px;
+    color: rgba(255, 255, 255, 0.69);
+    cursor: pointer;
+}
+
+.personal-info .fa:hover {
+    color: rgba(130, 130, 130, 0.91);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.info{
+    float: left;
+}
+
+input{
+    /*background: transparent;*/
+    border: none;
+
+}
+
+input:focus{
+    outline: none;
+}
+
+.menuli{
+    float: left;
+    font-family: Ubuntu, sans-serif;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 10px 10px 0 0;
+    box-shadow: inset -4px -2px 12px #2f2f2f;
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+    padding-top: 10px;
+}
+
+.menuli:hover{
+    box-shadow: none;
+
+}
+
+.active-menu{
+    box-shadow: inset 2px 2px 5px #ababab;
+    background: rgb(249, 249, 249);
+    color: black;
+}
+
+a,
+a:hover,
+a:visited{
+    text-decoration: none;
+    color: inherit;
+}
+
+.validate{
+    display: none;
+}
+
+.active{
+    display: block;
+}
+
+.validate-panel{
+    font-size: 4em;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    color: #313131;
+}
+
+.validate-panel i{
+    width: 50%;
+    opacity: 0.21;
+    cursor: pointer;
+    transition: 0.1s;
+
+}
+
+.validate-panel i:hover{
+    opacity: 0.6;
+    color: #000;
+
+}
+
+.fa-check-circle-o{
+    background: rgb(23, 146, 23);
+}
+
+
+.fa-times-circle-o{
+    background: rgb(243, 12, 44);
+}
+
+.carousel-indicators {
+    bottom: 50px;
+}
+.carousel-indicators li{
+    background-color: rgba(230, 15, 63, 0.71);
+    border: none;
+}
+
+.about{
+    position: absolute;
+    z-index: 1;
+    bottom: 83px;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 1.2em;
+}
+
+.back-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.61);
+    z-index: 999;
+}
+
+.add-photos{
+    height: 500px;
+    position: fixed;
+    top: calc(50% - 250px);
+    left: calc(50% - 350px);
+    background: #fff;
+    z-index: 9999;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.add-photos .container-fluid{
+    min-height: 100%;
+    min-width: 600px;
+    float: left;
+    background: none;
+    padding: 10px 10px;
+
+}
+
+.add-photos .fa-plus-square-o{
+    font-size: 10em;
+}
+
+
+.add-photo-fio{
+    width: 200px;
+    height: 100%;
+    background: #333;
+    float: left;
+    padding: 0 10px;
+}
+
+.add-photo-fio input{
+    background: #fff;
+    margin-top: 10px;
+    height: 30px;
+    width: 100%;
+    border-radius: 3px;
+    padding-left: 10px;
+    text-overflow: ellipsis;
+    color: black;
+    font-family: Ubuntu, sans-serif;
+}
+
+input[type=file]{
+    display: none;
+}
+
+.add-photo-fio i{
+    cursor: pointer;
+    color: rgba(255, 101, 53, 0.76);
+    font-size: 9em;
+    margin-top: 60px;
+}
+
+.add-photo-fio i:hover{
+    color: #ff6636;
+}
+
+.add-photos .photo{
+    height: 175px;
+    border-radius: 20px;
+}
+
+.clone{
+    display: none;
+}
+
+.about p{
+    margin: 0;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: calc(100% - 10px);
+    text-overflow: ellipsis;
+}
+
+.validate#add-photo .about{
+    bottom: 30px;
+}
+
+.validate#add-photo ol{
+    bottom: 0px;
+}
+
+.validate#add-univer textarea{
+    color: black;
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.border-main-photo{
+    border: 2px solid green;
+}

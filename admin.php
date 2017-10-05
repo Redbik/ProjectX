@@ -1,11 +1,3 @@
-//ТУУУУУУУУТТТТТТТТТТТТТТТ
-
-
-
-
-
-
-
 <?php
     include ("actions/config.php");
 include ('authVk.php');

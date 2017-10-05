@@ -719,6 +719,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         crossorigin="anonymous"></script>
 
 <script>
+
     String.prototype.translit = (function(){
         var L = {
                 'А':'A','а':'a','Б':'B','б':'b','В':'V','в':'v','Г':'G','г':'g',
@@ -874,7 +875,7 @@ $(function () {
                 }
 //--------------Вывод главной фотки ^
                 $("#like-photo .item:last-child").children().addClass("rotateInDownRight");
-                return false;
+//                return false;
             }
         });
     }
@@ -973,7 +974,7 @@ $(function () {
                 }
 //--------------Вывод главной фотки ^
                 $("#like-photo .item:last-child").children().addClass("rotateInDownLeft");
-                return false;
+//                return false;
             }
         });
     }
@@ -1078,7 +1079,7 @@ $(function () {
 //--------------Вывод главной фотки ^
                 $("#like-photo .item:last-child").children().addClass("pulse");
 
-                return false;
+//                return false;
             }
         });
     }

@@ -51,19 +51,14 @@ function sel_photos_lk() {
 var photos = [];
 function add_photos() {
     var img = $(".add-photo-form").find("input[type=file]").val();
-    if ($(".plus-info.add-mobile-photo .photo-counter").text()=='3'){
-        $(".add-photos .fa-plus-square-o").show();
-        // alert(1);
-    }
+    var colPhotos = -1;
+
     if (img!='' && img!=undefined){
-        var date = new Date();
-        if ($(".plus-info.add-mobile-photo .photo-counter").text()=='3'){
-            // alert(3);
-            $(".add-photos .fa-plus-square-o").hide();
-        }else{
-            $(".add-photos .fa-plus-square-o").show();
-        }
-        $(".add-photos .clone").clone(true).insertBefore(".add-photos .plus").removeClass("clone").children().addClass('newPhoto');
+
+        $(".add-photos .col-lg-3").each(function (index) {
+            colPhotos++;
+        });
+
         img = img.replace("C:\\fakepath\\","");
         img = img.replace(/[\s]+/g, '');
         img = img.translit();
@@ -77,12 +72,15 @@ function add_photos() {
             cache: false,
             data: formData,
             success: function (data) {
-                $(".add-photos").children().each(function (index) {
-                    $(".photo-counter").parent().show().children(".photo-counter").text(index-2)
-                });
+
                 if(photos.indexOf(img) + 1) {
                     $(".newPhoto").parent().remove();
+                    $(".plus-info.add-mobile-photo .photo-counter").text(colPhotos-1);
                 } else{
+                    $(".add-photos .clone").clone(true).insertBefore(".add-photos .plus").removeClass("clone").children().addClass('newPhoto');
+                    $(".add-photos").children().each(function (index) {
+                        $(".photo-counter").parent().show().children(".photo-counter").text(colPhotos);
+                    });
                     $(".add-photos .newPhoto").css({
                         background :'url('+ img +')',
                         backgroundSize: 'cover',
@@ -90,6 +88,11 @@ function add_photos() {
                     }).removeClass('newPhoto');
                     photos.push(img);
                     $(".add-photo-fio .clone-hid").attr('value',photos);
+                }
+                if ($(".plus-info.add-mobile-photo .photo-counter").text()=='4'){
+                    $(".add-photos .fa-plus-square-o").hide();
+                }else{
+                    $(".add-photos .fa-plus-square-o").show();
                 }
                 $('#add-photo-file').parent().html($('#add-photo-file').parent().html());
             }
@@ -205,6 +208,7 @@ $(".cabinet .fa-trash, .cabinet #lk-photos .delete-photo").click(function () {
 
 
 $(".add-photos .delete-photo").click(function () {
+    $(".add-photos .fa-plus-square-o").show();
     var delPhoto= 'т';
     delPhoto = String($(this).parents(".photo").css('background-image'));
     delPhoto = delPhoto.replace('url("http://localhost/www/ProjectX/', '');

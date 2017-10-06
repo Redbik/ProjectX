@@ -1302,6 +1302,14 @@ input:focus{
     .info p{
         text-align: center
     }
+
+    .auth-window{
+        top: calc(50% - 265px);
+    }
+
+    .indicator-hover{
+        margin-top: -105%;
+    }
 }
 
 
@@ -1368,7 +1376,7 @@ input:focus{
         box-shadow: inset -2px 0 9px 0 #b1b1b1;
         position: fixed;
         width: 100%;
-        height: 55%;
+        height: 65%;
         bottom: -70px;
         left: 0;
         margin: 0;
@@ -1389,10 +1397,6 @@ input:focus{
         position: absolute;
         right: 8px;
         top: 2px;
-    }
-
-    .photo .delete-photo{
-        padding-top: 15px;
     }
 
     .cabinet .container-fluid .container{
@@ -1423,6 +1427,8 @@ input:focus{
         padding-top: 5px;
         margin: 0;
     }
+
+
 }
 @media only screen and (max-width: 677px) {
     .fulltop h2 {
@@ -1481,6 +1487,19 @@ input:focus{
     .mobile-panel{
         font-size: 2.6em;
     }
+
+    .photo .delete-photo{
+        padding-top: 40px;
+    }
+
+    .indicator-hover{
+        margin-top: -100%;
+    }
+
+    .fulltop .container .image {
+        min-height: 100%;
+        width: 100%;
+    }
 }
 
 
@@ -1509,6 +1528,14 @@ input:focus{
 }
 
 @media only screen and (max-width: 390px){
+    .cabinet .photo {
+        height: 90px;
+    }
+
+    .events-c{
+        padding: 0 15px;
+    }
+
     .auth-window{
         font-size: 1.1em;
         left: 0;
@@ -1600,10 +1627,6 @@ input:focus{
         max-height: 355px;
     }
 
-    .events-c{
-        padding: 0 25px;
-    }
-
     .events-c-hover{
         top: 0;
     }
@@ -1612,16 +1635,26 @@ input:focus{
         padding-top: 18px;
     }
 
-}
-
-
-@media only screen and (max-width: 390px) {
-    .cabinet .photo {
-        height: 90px;
+    .photo .delete-photo{
+        padding-top: 0;
     }
 
-    .events-c{
-        padding: 0 15px;
+    .indicator-hover{
+        margin-top: -70%;
+    }
+
+    .add-photos .fa-plus-square-o{
+        font-size: 7em;
+    }
+
+    .add-photos .photo{
+        height: 110px;
+    }
+
+    .ready-button#back-auth {
+        float: none;
+        margin: 10px auto;
     }
 }
+
 

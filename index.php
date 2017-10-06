@@ -700,7 +700,6 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500&amp;subset=cyrillic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lobster&amp;subset=cyrillic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
-</body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
@@ -746,18 +745,18 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
 
 
     $(".old-mask").mask("99", {placeholder: ""});
-$(function () {
-    $(".auth-window input#check-politic").click(function () {
+    $(function () {
+        $(".auth-window input#check-politic").click(function () {
 //        alert($("input#check-politic").attr("checked"));
-        if($(this).is(':checked')) {
-            $("#finish-auth").show();
-        }
-        else{
-            $("#finish-auth").hide();
+            if($(this).is(':checked')) {
+                $("#finish-auth").show();
+            }
+            else{
+                $("#finish-auth").hide();
 
-        }
+            }
+        });
     });
-});
 
 
     $(function () {
@@ -812,8 +811,9 @@ $(function () {
 
 //                    }
 //                    alert(data[i].name);
-                    $("#like-photo").find(".about-name").text(data[i].name);
-                    $("#like-photo").find(".about-uni").text(data[i].univer);
+                    $("#like-photo").find(".about-name").text(data[i].name + ', ');
+                    $("#like-photo").find(".about-old").text(data[i].old);
+                    $("#like-photo").find(".about-uni").text(data[i].univer + ', ');
                     $("#like-photo").find(".about-fac").text(data[i].fac);
                     if (data[i].instagram == '')
                         $("#like-photo").find(".about-inst").hide();
@@ -895,33 +895,32 @@ $(function () {
             dataType: 'json',
             cache: false,
             success: function (data){
-//                alert(data);
                 var slideTo = 0;
-                for(var i= 0;i<data.length;i++){
+                for (var i = 0; i < data.length; i++) {
                     if (data[i].photo == data[0].main_photo)
                         var mainPhoto = data[i].photo;
                     $("#like-photo").find(".item.clone").clone(true)
                         .appendTo($("#like-photo .carousel-inner")).removeClass("clone")
                         .children().css({
-                        background: 'url('+ data[i].photo +')',
+                        background: 'url(' + data[i].photo + ')',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center 25%'
                     });
 
-
 //                    }
-
-                    $("#like-photo").find(".about-name").text(data[i].name);
-                    $("#like-photo").find(".about-uni").text(data[i].univer);
+//                    alert(data[i].name);
+                    $("#like-photo").find(".about-name").text(data[i].name + ', ');
+                    $("#like-photo").find(".about-old").text(data[i].old);
+                    $("#like-photo").find(".about-uni").text(data[i].univer + ', ');
                     $("#like-photo").find(".about-fac").text(data[i].fac);
-                    if (data[i].instagram=='')
+                    if (data[i].instagram == '')
                         $("#like-photo").find(".about-inst").hide();
                     else
-                        $("#like-photo").find(".about-inst").attr('href','https://instagram.com/'+data[i].instagram);
-                    if (data[i].vk=='')
+                        $("#like-photo").find(".about-inst").attr('href', 'https://instagram.com/' + data[i].instagram);
+                    if (data[i].vk == '')
                         $("#like-photo").find(".about-vk").hide();
                     else
-                        $("#like-photo").find(".about-vk").attr('href','https://vk.com/'+data[i].vk);
+                        $("#like-photo").find(".about-vk").attr('href', 'https://vk.com/' + data[i].vk);
                     $("#like-photo").find("input[type=hidden]").val(data[i].id_user);
 
                     $("#like-photo").find("li.clone").clone(true)
@@ -974,7 +973,7 @@ $(function () {
                 }
 //--------------Вывод главной фотки ^
                 $("#like-photo .item:last-child").children().addClass("rotateInDownLeft");
-//                return false;
+                return false;
             }
         });
     }
@@ -1001,31 +1000,32 @@ $(function () {
 
 //                alert(data);
                 var slideTo = 0;
-                for(var i= 1;i<data.length;i++){
+                for (var i = 0; i < data.length; i++) {
                     if (data[i].photo == data[0].main_photo)
                         var mainPhoto = data[i].photo;
                     $("#like-photo").find(".item.clone").clone(true)
                         .appendTo($("#like-photo .carousel-inner")).removeClass("clone")
                         .children().css({
-                        background: 'url('+ data[i].photo +')',
+                        background: 'url(' + data[i].photo + ')',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center 25%'
                     });
 
 
 //                    }
-
-                    $("#like-photo").find(".about-name").text(data[i].name);
-                    $("#like-photo").find(".about-uni").text(data[i].univer);
+//                    alert(data[i].name);
+                    $("#like-photo").find(".about-name").text(data[i].name + ', ');
+                    $("#like-photo").find(".about-old").text(data[i].old);
+                    $("#like-photo").find(".about-uni").text(data[i].univer + ', ');
                     $("#like-photo").find(".about-fac").text(data[i].fac);
-                    if (data[i].instagram=='')
+                    if (data[i].instagram == '')
                         $("#like-photo").find(".about-inst").hide();
                     else
-                        $("#like-photo").find(".about-inst").attr('href','https://instagram.com/'+data[i].instagram);
-                    if (data[i].vk=='')
+                        $("#like-photo").find(".about-inst").attr('href', 'https://instagram.com/' + data[i].instagram);
+                    if (data[i].vk == '')
                         $("#like-photo").find(".about-vk").hide();
                     else
-                        $("#like-photo").find(".about-vk").attr('href','https://vk.com/'+data[i].vk);
+                        $("#like-photo").find(".about-vk").attr('href', 'https://vk.com/' + data[i].vk);
                     $("#like-photo").find("input[type=hidden]").val(data[i].id_user);
 
                     $("#like-photo").find("li.clone").clone(true)
@@ -1079,7 +1079,7 @@ $(function () {
 //--------------Вывод главной фотки ^
                 $("#like-photo .item:last-child").children().addClass("pulse");
 
-//                return false;
+                return false;
             }
         });
     }
@@ -1124,27 +1124,27 @@ $(function () {
         $(".plus-info").css('text-shadow','none');
 
     });
-$(function () {
-    $(".cabinet .switch.plus .fa").click(function () {
-        var h = $(".add-photos").css('height');
+    $(function () {
+        $(".cabinet .switch.plus .fa").click(function () {
+            var h = $(".add-photos").css('height');
 //        alert();
-        if (h == '0px'){
-            $(".add-photos").animate({
-                minHeight: '270px'
-            }, 10, "linear", function () {
-                $(".cabinet").animate({
-                    scrollTop: 9999
+            if (h == '0px'){
+                $(".add-photos").animate({
+                    minHeight: '270px'
+                }, 10, "linear", function () {
+                    $(".cabinet").animate({
+                        scrollTop: 9999
+                    });
                 });
-            });
-        }
-        else{
-            $(".add-photos").animate({
-                minHeight: '0px'
-            }, 10, "easeInQuad");
-        }
+            }
+            else{
+                $(".add-photos").animate({
+                    minHeight: '0px'
+                }, 10, "easeInQuad");
+            }
 
+        });
     });
-});
 
 
 
@@ -1176,10 +1176,10 @@ $(function () {
 
 
     $(".li").hover(function () {
-       $(this).children(".fa-angle-down").css({
-           transform: 'rotate(-90deg)',
-        background: 'rgba(255, 255, 255, 0.52)'
-       });
+        $(this).children(".fa-angle-down").css({
+            transform: 'rotate(-90deg)',
+            background: 'rgba(255, 255, 255, 0.52)'
+        });
     }, function () {
         $(this).children(".fa-angle-down").css({
             transform: '',
@@ -1401,18 +1401,18 @@ $(function () {
     });
 
     $(".fa-caret-down").click(function () {
-       if ($(this).next().css('height')=='200px'){
-           $(this).next().show().animate({
-               opacity: 0,
-               height: 0
-           }, 10);
-       }
-       else{
-           $(this).next().show().animate({
-               opacity: 1,
-               height: 200
-           }, 10);
-       }
+        if ($(this).next().css('height')=='200px'){
+            $(this).next().show().animate({
+                opacity: 0,
+                height: 0
+            }, 10);
+        }
+        else{
+            $(this).next().show().animate({
+                opacity: 1,
+                height: 200
+            }, 10);
+        }
     });
 
     $(".univers-list li").click(function () {
@@ -1491,19 +1491,19 @@ $(function () {
     });
 
 
-//    $(function() {
-//        //Keep track of how many swipes
-//        var count=0;
-//        //Enable swiping...
-//        $(".image").swipe( {
-//            //Single swipe handler for left swipes
-//            swipeLeft:function() {
-//                alert(1);
-//            },
-//            //Default is 75px, set to 0 for demo so any distance triggers swipe
-//            threshold:0
-//        });
-//    });
+    //    $(function() {
+    //        //Keep track of how many swipes
+    //        var count=0;
+    //        //Enable swiping...
+    //        $(".image").swipe( {
+    //            //Single swipe handler for left swipes
+    //            swipeLeft:function() {
+    //                alert(1);
+    //            },
+    //            //Default is 75px, set to 0 for demo so any distance triggers swipe
+    //            threshold:0
+    //        });
+    //    });
 </script>
 <script>
     $(window).on('load', function () {
@@ -1511,7 +1511,6 @@ $(function () {
     });
     //    $(".prel").hide();
 </script>
-<script>
+</body>
 
-</script>
 </html>

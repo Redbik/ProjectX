@@ -8,7 +8,6 @@ function sel_top() {
         dataType: "json",
         success: function (data){
             // alert(data[0].main_photo);
-
             var slideTo = 1;
             var kolPhoto = 0;
             $(".fulltop #fulltop .col-md-4.clone").clone(true).show().insertBefore("#fulltop .plus")
@@ -16,8 +15,6 @@ function sel_top() {
                 .find("ol li").attr('data-target', '#carousel_01');
             for(var i=0;i<data.length;i++){
 //                    if (kolPhoto==2) return false;
-                if (data[i].photo == data[0].main_photo)
-                    var mainPhoto = data[i].photo;
                 var prevId = $("#fulltop .plus").prev().find(".item:last input[type=hidden]").val();
                 if (prevId == data[i].id_user){
                     $("#fulltop .plus").prev().find(".item.clone").clone(true)
@@ -77,45 +74,36 @@ function sel_top() {
             }
             $("#fulltop").find(".col-md-4.clone").next().remove();
 //--------------Вывод главной фотки v
-            if (mainPhoto != undefined) {
-                    $("#fulltop .plus").prev().find(".item.clone").clone(true)
-                        .insertAfter($("#fulltop .plus").prev().find(".item:first")).removeClass("clone")
-                        .children().css({
-                        background: 'url('+ mainPhoto +')',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center 25%'
+            $("#fulltop .plus").prev().find(".item.clone").clone(true)
+                .insertAfter($("#fulltop .plus").prev().find(".item:first")).removeClass("clone")
+                .children().css({
+                background: 'url('+ data[0].main_photo +')',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 25%'
+            });
+            $("#fulltop .plus").prev().find(".item").each(function () {
+                $(this).removeClass("active");
+                $("#fulltop .plus").prev().find(".item:not(.clone):last").addClass("active");
+            });
+            $("#fulltop .plus").prev().find("ol li").each(function () {
+                $(this).removeClass("active");
+                $("#fulltop .plus").prev().find("ol li:not(.clone):last-child").addClass("active");
+            });
+            var eqPhoto =[];
+            $("#fulltop .plus").prev().find(".item:not(.clone)").each(function (index) {
+                var backImg= $(this).children().css('background-image');
+                if (eqPhoto.indexOf(backImg) + 1){
+                    $("#fulltop .plus").prev().find(".item:not(.clone)").each(function () {
+                        if ($(this).children().css('background-image') == backImg){
+                            $(this).remove();
+                            return false;
+                        }
                     });
-                $("#fulltop .plus").prev().find(".item.clone").clone(true)
-                    .insertAfter($("#fulltop .plus").prev().find(".item:first")).removeClass("clone")
-                    .children().css({
-                    background: 'url('+ data[0].main_photo +')',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center 25%'
-                });
-                $("#fulltop .plus").prev().find(".item").each(function () {
-                    $(this).removeClass("active");
-                    $("#fulltop .plus").prev().find(".item:not(.clone):last").addClass("active");
-                });
-                $("#fulltop .plus").prev().find("ol li").each(function () {
-                    $(this).removeClass("active");
-                    $("#fulltop .plus").prev().find("ol li:not(.clone):last-child").addClass("active");
-                });
-                var eqPhoto =[];
-                $("#fulltop .plus").prev().find(".item:not(.clone)").each(function (index) {
-                    var backImg= $(this).children().css('background-image');
-                    if (eqPhoto.indexOf(backImg) + 1){
-                        $("#fulltop .plus").prev().find(".item:not(.clone)").each(function () {
-                            if ($(this).children().css('background-image') == backImg){
-                                $(this).remove();
-                                return false;
-                            }
-                        });
-                    }
-                    else{
-                        eqPhoto.push(backImg);
-                    }
-                });
-            }
+                }
+                else{
+                    eqPhoto.push(backImg);
+                }
+            });
 //--------------Вывод главной фотки ^
             $("#fulltop .col-md-4.clone").next().remove();
             return false;
@@ -131,7 +119,6 @@ function firstTop() {
         dataType: "json",
         success: function (data){
             // alert(data[0].id_user);
-
 
             var slideTo = 1;
             $("#firsttop").find(".item.clone").clone(true)
@@ -158,8 +145,6 @@ function firstTop() {
             else
                 $("#firsttop").find(".about-vk").attr('href','https://vk.com/'+data[0].vk);
             for(var i=1;i<data.length;i++) {
-                if (data[i].photo == data[0].main_photo)
-                    var mainPhoto = data[i].photo;
                 var prevId = $("#firsttop .carousel-inner").find(".item input[type=hidden]:last-child").val();
 
                 if (prevId == data[i].id_user) {
@@ -198,39 +183,36 @@ function firstTop() {
                 }
 
             }
-
-            if (mainPhoto != undefined) {
-                $("#firsttop").find(".item.clone").clone(true)
-                    .appendTo($("#firsttop .carousel-inner")).removeClass("clone")
-                    .children(".image").css({
-                    background: 'url(' + mainPhoto + ')',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center 25%'
-                });
-                $("#firsttop").find(".item").each(function () {
-                    $(this).removeClass("active");
-                    $("#firsttop").find(".item:not(.clone):last").addClass("active");
-                });
-                $("#firsttop").find("ol li").each(function () {
-                    $(this).removeClass("active");
-                    $("#firsttop").find("ol li:not(.clone):last-child").addClass("active");
-                });
-                var eqPhoto = [];
-                $("#firsttop").find(".item:not(.clone)").each(function (index) {
-                    var backImg = $(this).children().css('background-image');
-                    if (eqPhoto.indexOf(backImg) + 1) {
-                        $("#firsttop").find(".item:not(.clone)").each(function () {
-                            if ($(this).children().css('background-image') == backImg) {
-                                $(this).remove();
-                                return false;
-                            }
-                        });
-                    }
-                    else {
-                        eqPhoto.push(backImg);
-                    }
-                });
-            }
+            $("#firsttop").find(".item.clone").clone(true)
+                .appendTo($("#firsttop .carousel-inner")).removeClass("clone")
+                .children(".image").css({
+                background: 'url('+ data[0].main_photo +')',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 25%'
+            });
+            $("#firsttop").find(".item").each(function () {
+                $(this).removeClass("active");
+                $("#firsttop").find(".item:not(.clone):last").addClass("active");
+            });
+            $("#firsttop").find("ol li").each(function () {
+                $(this).removeClass("active");
+                $("#firsttop").find("ol li:not(.clone):last-child").addClass("active");
+            });
+            var eqPhoto =[];
+            $("#firsttop").find(".item:not(.clone)").each(function (index) {
+                var backImg= $(this).children().css('background-image');
+                if (eqPhoto.indexOf(backImg) + 1){
+                    $("#firsttop").find(".item:not(.clone)").each(function () {
+                        if ($(this).children().css('background-image') == backImg){
+                            $(this).remove();
+                            return false;
+                        }
+                    });
+                }
+                else{
+                    eqPhoto.push(backImg);
+                }
+            });
             return false;
 
         }

@@ -4,7 +4,7 @@ include ('authVk.php');
 include ('OAuth.php');
 //    include ('authFacebook.php');
 if (isset($_COOKIE['id'])){
-    $id = htmlspecialchars($_COOKIE['id']);
+    $id = $_COOKIE['id'];
     $queryRows = mysqli_query($db,'SELECT name, sername, univer, fac, old FROM user WHERE id_user='.$id.' and (
         name = "" or
         sername = "" or
@@ -22,20 +22,20 @@ if (isset($_COOKIE['id'])){
     }
     $query = mysqli_query($db,"SELECT name, sername, univer, fac, old, vk, instagram, main_photo, likes FROM user where `id_user`= '$id'");
     $res=mysqli_fetch_array($query);
-    $main_photo=htmlspecialchars(trim($res['main_photo']));
-    $name = htmlspecialchars(trim($res['name']));
-    $univer = htmlspecialchars(trim($res['univer']));
-    $fac = htmlspecialchars(trim($res['fac']));
-    $old = htmlspecialchars(trim($res['old']));
-    $vk = htmlspecialchars(trim($res['vk']));
-    $userLikes = htmlspecialchars(trim($res['likes']));
-    $instagram = htmlspecialchars(trim($res['instagram']));
-    $query2 = mysqli_query($db,"SELECT id_photo,likes,photo,status,user_id FROM photos WHERE user_id ='$id'");
+    $main_photo=$res['main_photo'];
+    $name = $res['name'];
+    $univer = $res['univer'];
+    $fac = $res['fac'];
+    $old = $res['old'];
+    $vk = $res['vk'];
+    $userLikes = $res['likes'];
+    $instagram = $res['instagram'];
+    $query2 = mysqli_query($db,"SELECT * FROM photos WHERE user_id ='$id'");
     $res2=mysqli_fetch_array($query2);
     $photo = $res2['photo'];
     $likes = $res2['likes'];
 
-    $a = mysqli_query($db,"SELECT name, sername, univer, fac, old, vk, instagram, main_photo, likes, id_user FROM user ORDER BY likes DESC");
+    $a = mysqli_query($db,"SELECT * FROM user ORDER BY likes DESC");
     $topPlace=0;
     $b = mysqli_fetch_array($a);
     for($i=0; $i<count($b); $i++){
@@ -344,21 +344,21 @@ if (isset($_COOKIE['id'])){
                 </div>
                 <div class="personal-info">
                     <div class="info">
-                        <p class="pName">
+                        <p>
                             <?php
                                 echo $name;
                             ?>,
                         </p>
-                        <p class="pOld"> 
+                        <p> 
                             21
                         </p>
                         <br>
-                        <p class="pUniver">
+                        <p>
                             <?php
                                 echo $univer;
                             ?>, 
                         </p>
-                        <p class="pFac">
+                        <p>
                             <?php
                             echo $fac;
                             ?>
@@ -447,7 +447,7 @@ if (isset($_COOKIE['id'])){
                     </div>
                     <i class="fa fa-times"></i>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 clone animated slideInUp" style="animation-duration: 300ms;">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 clone animated slideInUp" style="animation-duration: 300ms;">
                     <div class="photo">
                         <i class="fa fa-clock-o"></i>
                         <i class="fa fa-minus-circle"></i>
@@ -458,7 +458,7 @@ if (isset($_COOKIE['id'])){
 
 
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 plus">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 plus">
                     <div class="add-photo-fio" style="display: none">
                         <form class="add-photo-form" enctype="multipart/form-data">
                             <input type="file" id="add-photo-file" name="userfile">
@@ -1321,12 +1321,6 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         }
     }
 
-    function editCabinetInfo() {
-        $(".cabinet .pName").text($(".auth-window input[name=name]").val() + ', ');
-        $(".cabinet .pOld").text($(".auth-window input[name=old]").val());
-        $(".cabinet .pUniver").text($(".auth-window input[name=univer]").val()+ ', ');
-        $(".cabinet .pFac").text($(".auth-window input[name=fac]").val());
-    }
 
 
     $("#finish-auth").click(function () {
@@ -1335,6 +1329,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         img = img.replace(/[\s]+/g, '');
         img = img.translit();
         img = "./users/photos/" + img;
+        alert(img);
         if (img='./users/photos/'){
             img = $(".add-main-photo-form").find("img").attr('src');
         }
@@ -1343,10 +1338,9 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
             type: "Post",
             data: {"data":img},
             success: function (data) {
+//                alert(img);
+                alert(data);
                 $(".auth-window, .back-modal#auth-window").addClass('bounceOut').hide().removeClass('bounceOut');
-                $(".cabinet #lk-photos .col-lg-3:not(.plus, .clone)").remove();
-                sel_photos_lk();
-                editCabinetInfo();
                 $(".cabinet").removeClass("blur");
             }
         });

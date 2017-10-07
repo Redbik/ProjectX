@@ -42,9 +42,9 @@ function sel_top() {
                     slideTo =1;
 //                        kolPhoto++;
                 }
-                $("#fulltop .plus").prev().find(".about-name").text(data[i].name);
+                $("#fulltop .plus").prev().find(".about-name").text(data[i].name + ', ');
                 $("#fulltop .plus").prev().find(".about-old").text(data[i].old);
-                $("#fulltop .plus").prev().find(".about-uni").text(data[i].univer);
+                $("#fulltop .plus").prev().find(".about-uni").text(data[i].univer + ', ');
                 $("#fulltop .plus").prev().find(".about-fac").text(data[i].fac);
                 if (data[i].instagram=='')
                     $("#fulltop .plus").prev().find(".about-inst").hide();
@@ -132,9 +132,9 @@ function firstTop() {
             $("#firsttop").find("li.clone").clone(true)
                 .appendTo($("#firsttop").find("ol")).removeClass("clone")
                 .attr('data-slide-to', 0).show();
-            $("#firsttop").find(".about-name").text(data[0].name);
+            $("#firsttop").find(".about-name").text(data[0].name + ', ');
             $("#firsttop").find(".about-old").text(data[0].old);
-            $("#firsttop").find(".about-uni").text(data[0].univer);
+            $("#firsttop").find(".about-uni").text(data[0].univer + ', ');
             $("#firsttop").find(".about-fac").text(data[0].fac);
             if (data[0].instagram=='')
                 $("#firsttop").find(".about-inst").hide();

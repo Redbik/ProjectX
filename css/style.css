@@ -1391,12 +1391,12 @@ input:focus{
         top: 2px;
     }
 
-    .photo .delete-photo{
-        padding-top: 15px;
-    }
-
     .cabinet .container-fluid .container{
         /*padding-bottom: 0;*/
+    }
+
+    .add-photos {
+        height: 65%;
     }
 
     .add-photos .col-md-12 {
@@ -1422,6 +1422,15 @@ input:focus{
     .add-photos .fa-plus-square-o{
         padding-top: 5px;
         margin: 0;
+    }
+
+    .fulltop .container .image {
+        min-height: 100%;
+        width: 100%;
+    }
+
+    .indicator-hover {
+        margin-top: -108%;
     }
 }
 @media only screen and (max-width: 677px) {
@@ -1480,6 +1489,15 @@ input:focus{
 
     .mobile-panel{
         font-size: 2.6em;
+    }
+
+    .indicator-hover {
+        margin-top: -100%;
+    }
+
+    .photo .delete-photo{
+        padding-top: 35px;
+        font-size: 5em;
     }
 }
 
@@ -1593,7 +1611,7 @@ input:focus{
     }
 
     .fulltop .container div.about{
-        top: 145px;
+        top: 157px;
     }
 
     .images{
@@ -1612,10 +1630,27 @@ input:focus{
         padding-top: 18px;
     }
 
+    .add-photos {
+        height: 55%;
+    }
+
+    .add-photos .photo {
+        height: 115px;
+    }
+
+    .indicator-hover {
+        margin-top: -73%;
+    }
+
+    .photo .delete-photo{
+        padding-top: 17px;
+        font-size: 4em;
+    }
+
 }
 
 
-@media only screen and (max-width: 390px) {
+@media only screen and (max-width: 320px) {
     .cabinet .photo {
         height: 90px;
     }
@@ -1623,5 +1658,10 @@ input:focus{
     .events-c{
         padding: 0 15px;
     }
+
+    .indicator-hover {
+        margin-top: -85%;
+    }
+
 }
 

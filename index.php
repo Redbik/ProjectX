@@ -447,7 +447,7 @@ if (isset($_COOKIE['id'])){
                     </div>
                     <i class="fa fa-times"></i>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 clone animated slideInUp" style="animation-duration: 300ms;">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 clone animated slideInUp" style="animation-duration: 300ms;">
                     <div class="photo">
                         <i class="fa fa-clock-o"></i>
                         <i class="fa fa-minus-circle"></i>
@@ -458,7 +458,7 @@ if (isset($_COOKIE['id'])){
 
 
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 plus">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 plus">
                     <div class="add-photo-fio" style="display: none">
                         <form class="add-photo-form" enctype="multipart/form-data">
                             <input type="file" id="add-photo-file" name="userfile">

@@ -990,11 +990,14 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
     function like_foto() {
 //        $("#like-photo .item:last-child").addClass("rotateOutUpLeft", function () {
 //        });
+        var idfoto = $("#like-photo .carousel-inner .item input").val();
         $.ajax({
+
             url: './actions/like_foto.php',
             type: 'POST',
             dataType: 'json',
             cache: false,
+            data: {"idfoto":idfoto},
             success: function (data){
                 $(".backFoto").removeClass("noToch");
 

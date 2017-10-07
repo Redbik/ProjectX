@@ -44,6 +44,7 @@
     $arr = array();
     include ("config.php");
     include ('config_PDO.php');
+    $ids = $_POST['idfoto'];
 
     $QueryMin = "SELECT MIN(id_user) FROM vuser";
     $Min = $db->query($QueryMin)->fetchColumn();
@@ -66,8 +67,10 @@
     $result->execute();
 
     $result1 = $db->prepare('UPDATE user SET `likes`=`likes`+1 WHERE id_user=:ids');
-    $result1->bindParam(':ids', $randFoto);
+    $result1->bindParam(':ids', $ids);
     $result1->execute();
+
+
     $block = array();
 
     while ($row=$result->fetch(PDO::FETCH_ASSOC)){

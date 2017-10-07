@@ -7,7 +7,7 @@
  */
 
 include ('config_PDO.php');
-$result = $db->prepare('SELECT main_photo FROM user LIMIT 4');
+$result = $db->prepare('SELECT main_photo, likes FROM user ORDER BY likes DESC LIMIT 4');
 $result->execute();
 $block = array();
 while ($row=$result->fetch(PDO::FETCH_ASSOC)){

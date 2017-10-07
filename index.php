@@ -588,6 +588,21 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
                             <input type="hidden" value="1">
                         </div>
                         <div class="carousel-inner" >
+                            <div class="ready-likes">
+                                <span>Чтобы начать, нажми на </span>
+                                <div class="image-panel">
+                                    <i class="fa fa-angle-right" style="padding-left: 9px;"></i>
+                                </div>
+                                <span>Если тебе понравилась <br>участница, жми</span>
+                                <div class="image-panel">
+                                    <i class="fa fa-heart" style="font-size: 3em; padding-top: 21px"></i>
+                                </div>
+                                <span>Случайно переключили? Не беда, жми</span>
+                                <div class="image-panel">
+                                    <i class="fa fa-angle-left backFoto" style="padding-right: 9px;"></i>
+                                </div>
+
+                            </div>
                             <a href="#carousel_13" class="left carousel-control" data-slide="prev">
                                 <i class="glyphicon glyphicon-chevron-left"></i>
                             </a>
@@ -599,7 +614,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
                     </div>
                 </div>
                 <div class="image-panel">
-                    <i class="fa fa-angle-left backFoto" style="float: left; padding-right: 9px;"></i>
+                    <i class="fa fa-angle-left backFoto noToch" style="float: left; padding-right: 9px;"></i>
                     <i class="fa fa-heart" style="font-size: 3em; padding-top: 21px"></i>
                     <i class="fa fa-angle-right" style="float: right; padding-left: 9px;"></i>
                 </div>
@@ -718,7 +733,6 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         crossorigin="anonymous"></script>
 
 <script>
-
     String.prototype.translit = (function(){
         var L = {
                 'А':'A','а':'a','Б':'B','б':'b','В':'V','в':'v','Г':'G','г':'g',
@@ -789,6 +803,13 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
 
 
     function select_foto() {
+//        var idfoto = $("#like-photo .carousel-inner .item input").val();
+//        if (idfoto==undefined || idfoto==''){
+//            alert('ошибочка');
+//            select_foto();
+//            return;
+//        }
+
         $.ajax({
             url: './actions/select_foto.php',
             type: 'POST',
@@ -882,10 +903,11 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
 
     $(".image-panel .fa-angle-right").click(function () {
         select_foto();
+        var idfoto = $("#like-photo .carousel-inner .item input").val();
+
         $('#like-photo .carousel-inner').children(":not(a)").remove();
         $('#like-photo ol').children().remove();
-        $(".right, .left").each(function (index) {
-        });
+
     });
 
     function back_foto() {
@@ -990,7 +1012,12 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
     function like_foto() {
 //        $("#like-photo .item:last-child").addClass("rotateOutUpLeft", function () {
 //        });
+
         var idfoto = $("#like-photo .carousel-inner .item input").val();
+        if (idfoto==undefined || idfoto==''){
+            select_foto();
+        }
+//        alert(idfoto);
         $.ajax({
 
             url: './actions/like_foto.php',
@@ -1079,12 +1106,15 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
                         }
                     });
                 }
+
 //--------------Вывод главной фотки ^
                 $("#like-photo .item:last-child").children().addClass("pulse");
 
                 return false;
             }
+
         });
+
     }
 
     function ckeck_menu_user() {

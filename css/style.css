@@ -9,8 +9,22 @@ body{
     overflow-x: hidden;
 }
 
-*{
+.popover, .tooltip{
+	z-index: 99999;
+    color: #333;
+}
+
+.overflow{
+	position: relative;
+	overflow-x: hidden;
+}
+
+ .fa, .ready-button, .button-edit-photo{
     transition: 0.4s;
+}
+
+ol li{
+    transition: 0.2s;
 }
 
 html{
@@ -247,6 +261,7 @@ a:visited{
 .images{
     height: 500px;
     background: #222;
+    position: relative;
     overflow: hidden;
     border-radius: 20px;
 
@@ -301,15 +316,17 @@ a:visited{
 
 .about{
     font-family: Lobster, sans-serif;
-    font-size: 2.3em;
+    font-size: 2em;
     text-align: left;
-    padding-left: 10px;
+    padding: 10px;
     top: 320px;
     transition: 1s;
     position: absolute;
     z-index: 9999;
     left: calc(50% - 200px);
     width: 400px;
+    border-radius: 10px;
+    background: rgba(21, 21, 21, 0.33);
 }
 
 .about p{
@@ -319,6 +336,14 @@ a:visited{
     overflow: hidden;
     max-width: calc(100% - 10px);
     text-overflow: ellipsis;
+}
+
+.likes .carousel-indicators{
+    z-index: -1;
+}
+
+.fulltop .carousel-indicators{
+    z-index: 9999;
 }
 
 .carousel-indicators li{
@@ -751,8 +776,45 @@ input:focus{
 }
 
 .footer{
-    height: 80px;
+    padding: 15px;
+    min-height: 80px;
     background: #222;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+}
+
+.footer .fa{
+    font-size: 2em;
+}
+
+.footer span{
+    font-family: 'Dosis', sans-serif;
+    font-size: 1.9em;
+    font-weight: bold;
+    font-style: normal;
+    padding-left: 10px;
+}
+
+.insta-logo{
+    background: url("../img/insta-logo.png"); 
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+
+.insta-contact{
+    width: 220px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.insta-contact + span{
+    font-size: 1.3em;
+}
+
+.insta-contact + span a{
+    color: #d81a49;
 }
 
 .mobile{
@@ -1248,6 +1310,7 @@ input:focus{
 
 
 
+
 @media only screen and (min-width: 1600px) {
     .top-grid .col-md-12 {
         height: 335px;
@@ -1421,7 +1484,8 @@ input:focus{
     .add-photos .col-md-12 {
         z-index: 9;
         /* height: 70px; */
-        background: linear-gradient(90deg,rgb(109, 7, 68), rgba(41, 39, 165, 0.67));        font-size: 4em;
+        background: linear-gradient(90deg,rgb(109, 7, 68), rgba(41, 39, 165, 0.67));        
+        font-size: 4em;
         text-align: center;
         min-height: 45px;
         padding-top: 7px;
@@ -1450,6 +1514,10 @@ input:focus{
 
     .indicator-hover {
         margin-top: -108%;
+    }
+
+    .likes .images .about-uni{
+        font-size: 0.6em;
     }
 }
 @media only screen and (max-width: 677px) {
@@ -1518,6 +1586,16 @@ input:focus{
         padding-top: 35px;
         font-size: 5em;
     }
+
+    .ready-likes{
+    	padding-top: 150px;
+    }
+
+    .auth-window .add-main-photo{
+        top: 75px!important;
+    }
+
+
 }
 
 
@@ -1539,18 +1617,27 @@ input:focus{
         width: 100%;
     }
 
-    .cabinet .fa-clock-o{
+    .cabinet .fa-clock-o, .cabinet .fa-minus-circle {
         padding-top: 43px;
         font-size: 4em;
     }
 }
 
 @media only screen and (max-width: 390px){
+    .preload-photo{
+    /*padding: 25px;*/
+        width: 250px;
+        height: 250px;
+        top: calc(50% - 125px);
+        left: calc(50% - 125px);
+}
+
     .auth-window{
-        font-size: 1.1em;
+        font-size: .9em;
         left: 0;
-        top: 30px;
-        height: 85%;
+        top: 0px;
+        height: 100%;
+        padding-top: 10px
     }
 
     .auth-window input{
@@ -1567,9 +1654,9 @@ input:focus{
     }
 
     .maskVk{
-        width: 65px;
+        width: 55px;
         margin-left: 0;
-        padding-top: 9px;
+        padding-top: 12px;
     }
 
     .maskVk + input{
@@ -1637,6 +1724,11 @@ input:focus{
         max-height: 355px;
     }
 
+    .image{
+        width: 100%;
+        /*border-radius: 20px; */
+    }
+
     .events-c{
         padding: 0 25px;
     }
@@ -1645,12 +1737,12 @@ input:focus{
         top: 0;
     }
 
-    .cabinet .fa-clock-o{
+    .cabinet .fa-clock-o, .cabinet .fa-minus-circle{
         padding-top: 18px;
     }
 
     .add-photos {
-        height: 55%;
+        height: 75%;
     }
 
     .add-photos .photo {
@@ -1665,6 +1757,28 @@ input:focus{
         padding-top: 17px;
         font-size: 4em;
     }
+
+    .ready-button{
+    	width: 80px;
+    	height: 80px;
+    	padding-top: 30px;
+    }
+
+    .ready-button#back-auth{
+        width: 40px;
+        height: 40px;
+        padding-top: 12.5px;
+    }
+
+     .ready-likes{
+    	padding-top: 115px;
+    }
+
+    .edit-info-lk .ready-button#back-auth{
+        float: none;
+        margin: 20px auto;
+    }
+
 
 }
 

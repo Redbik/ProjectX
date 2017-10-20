@@ -36,10 +36,6 @@ if (
     $result->bindParam(':instagram', $instagram);
     $result->bindParam(':name', $name);
     $result->execute();
-    $block = array();
-
-    while ($row=$result->fetch(PDO::FETCH_ASSOC)){
-        $block[] = $row;
-    }
+  
 //    header("Location:".$location);
 }

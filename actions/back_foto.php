@@ -9,11 +9,19 @@
 
     include ('config_PDO.php');
 
-    $arr = array();
-    $arr = json_decode($_COOKIE['FotoBack'],true);
-    $reversed = array_reverse($arr);
+    if (!(empty($_POST['photoHistory']))){
+            $photoHistory = htmlspecialchars($_POST['photoHistory']);
+                // setcookie('aaa',$photoHistory);
 
-    $randFoto = $reversed[1];
+            $photoHistory= str_replace('NaN', '', $photoHistory);
+            $photoHistory= str_replace('undefined', '', $photoHistory);
+            $photoHistory = explode(",", $photoHistory);
+
+    }
+    $reversed = array_reverse($photoHistory);
+
+    $randFoto = $reversed[0];
+    setcookie('rand',$randFoto);
     $result = $db->prepare('SELECT * FROM vuser WHERE id_user=:id  and `status` = 1');
     $result->bindParam(':id', $randFoto);
     $result->execute();

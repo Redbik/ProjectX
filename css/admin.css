@@ -332,10 +332,11 @@ a:visited{
 
 
 .add-photo-fio{
-    width: 200px;
     height: 100%;
+    width: 200px;
     background: #333;
-    float: left;
+    /*float: right;*/
+    position: absolute;
     padding: 0 10px;
 }
 
@@ -359,7 +360,7 @@ input[type=file]{
     cursor: pointer;
     color: rgba(255, 101, 53, 0.76);
     font-size: 9em;
-    margin-top: 60px;
+    margin-top: 5px;
 }
 
 .add-photo-fio i:hover{
@@ -401,4 +402,101 @@ input[type=file]{
 
 .border-main-photo{
     border: 2px solid green;
+}
+
+.add-photos .next-add .fa{
+    color: #333;
+    font-size: 10em;
+    padding-top: 30px;
+}
+
+.univers-list{
+    position: absolute;
+    width: 90%;
+    height: 0;
+    background: #fff;
+    z-index: 999;
+    margin-top: 40px;
+    border-radius: 4px;
+    /*font-weight: 600;*/
+    /*color: #ececec;*/
+    text-align: left;
+    display: none;
+    opacity: 0;
+    overflow-y: scroll;
+    box-shadow: 0px 3px 11px rgba(165, 165, 165, 0.59);
+}
+
+.univers-list + span{
+    font-size: 0.58em;
+    float: left;
+    text-align: center;
+    width: 100%;
+    text-decoration: underline;
+}
+
+.univers-list ol{
+    list-style-type: none;
+    padding: 0;
+}
+
+.univers-list li{
+    border-bottom: 1px solid #ce93a2;;
+    padding-left: 10px;
+    color: #333;
+}
+
+.univers-list li:hover{
+    background: #888;
+    cursor: pointer;
+}
+
+#univers-mask{
+    width: 90%;
+    float: left;
+    border-radius: 4px 0 0 4px;
+}
+
+.fa-caret-down{
+    width: 10%;
+    height: 40px;
+    background: rgba(51, 51, 51, 0.16);
+    float: left;
+    padding-top: 11px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 1.1em!important;
+}
+
+@media only screen and (max-width: 768px) {
+    .head{
+        height: auto;
+    }
+    
+    .menu-point {
+        font-size: 0.7em;
+    }
+
+    .add-photos{
+        width: 100%;
+        height: 80%;
+        left: 0;
+        top: 0;
+    }
+
+    .add-photos .container-fluid{
+        min-width: 100%;
+    }
+
+ 	.add-photo-fio i{
+    	font-size: 7em;
+    }
+    .add-photo-fio{
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 999;
+        width: 100%;
+        height: 90%;
+    }
 }

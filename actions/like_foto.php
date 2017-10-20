@@ -41,39 +41,54 @@
 //
 //            $json = json_encode($foto);
 //            echo $json;
-    $arr = array();
-    include ("config.php");
     include ('config_PDO.php');
-$QueryMin = "SELECT MIN(id_user) FROM vuser";
-$Min = $db->query($QueryMin)->fetchColumn();
+    $ids = htmlspecialchars($_POST['idfoto']);
+    $QueryMin = "SELECT MIN(id_user) FROM vuser";
+    $Min = $db->query($QueryMin)->fetchColumn();
 
-$QueryMax = "SELECT MAX(id_user) FROM vuser";
-$Max = $db->query($QueryMax)->fetchColumn();
+    $QueryMax = "SELECT MAX(id_user) FROM vuser";
+    $Max = $db->query($QueryMax)->fetchColumn();
 
-$QueryCount = "SELECT COUNT(*) FROM user";
-$Count = $db->query($QueryCount)->fetchColumn();
-$arr = json_decode($_COOKIE['FotoBack'],true);
-//    $randFoto = rand($Min, $Max);
-//    while (in_array($randFoto,$arr)){
-//        $randFoto = rand($Min, $Max);
-//    }
-$CountArr = count($arr);
+    $QueryCount = "SELECT COUNT(DISTINCT id_user) FROM vuser WHERE status=1";
+    $Count = $db->query($QueryCount)->fetchColumn();
+    if (!(empty($_POST['photoHistory']))){
+            $photoHistory = htmlspecialchars($_POST['photoHistory']);
+            $photoHistory= str_replace('NaN', '', $photoHistory);
+            $photoHistory= str_replace('undefined', '', $photoHistory);
+            $photoHistory = explode(",", $photoHistory);
 
-if ($Count == $CountArr){
-    setcookie("FotoBack", "", time()-3600);
-    $randFoto = rand($Min, $Max);
+    }
 
-}else{
-    do{
-        $randFoto = rand($Min, $Max);
 
-    } while(in_array($randFoto,$arr));
+    //    $randFoto = rand($Min, $Max);
+    //    while (in_array($randFoto,$arr)){
+    //        $randFoto = rand($Min, $Max);
+    //    }
+    $CountArr = count($photoHistory);
+    if ($Count == $CountArr){
+        setcookie("clearPhotoHistory", "1", time()+60, "/");
+        do{
 
-    $arr[] =  $randFoto;
-    $json1 = json_encode($arr);
-    setcookie("FotoBack", $json1,time() + 60);
+            $randFoto = rand($Min, $Max);
+            $Counts = $db->prepare("SELECT * FROM vuser WHERE id_user=:id and `status` = 1");
+            $Counts->bindParam(':id', $randFoto);
+            $Counts ->execute();
+            $Counts = $Counts->rowCount();
+    } while(in_array($randFoto, $photoHistory) || $Counts=='0');
 
-}
+    }else{
+        do {
+            $randFoto = rand($Min, $Max);
+            $Counts = $db->prepare("SELECT * FROM vuser WHERE id_user=:id and `status` = 1");
+            $Counts->bindParam(':id', $randFoto);
+            $Counts ->execute();
+            $Counts = $Counts->rowCount();
+        }
+        while(in_array($randFoto, $photoHistory) || $Counts==0);
+
+        // setcookie("FotoBack", $json1,time() + 60);
+        // setcookie("backPhoto", $json1,time() + 60);
+    }
 
 $result = $db->prepare('SELECT * FROM vuser WHERE id_user=:id  and `status` = 1');
 $result->bindParam(':id', $randFoto);

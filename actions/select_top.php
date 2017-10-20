@@ -7,12 +7,12 @@
  */
 include ('config_PDO.php');
 
-$query = 'SELECT id_user FROM `user` ORDER BY likes DESC LIMIT 7';
+$query = 'SELECT id_user FROM `user` ORDER BY likes DESC LIMIT 8';
 $q = $db->query($query);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $ids = array();
 $res = $q->fetch(PDO::FETCH_BOTH);
-for ($i=0; $i<count($res)+5; $i++){
+for ($i=0; $i<count($res)+6; $i++){
     $ids[$i]= htmlspecialchars($res['id_user']);
 
     $res = $q->fetch(PDO::FETCH_BOTH);
@@ -31,7 +31,9 @@ SELECT name, univer, fac, old, vk, instagram, likes, id_user, photo, main_photo 
 UNION
 SELECT name, univer, fac, old, vk, instagram, likes, id_user, photo, main_photo FROM `vuser` WHERE id_user=:id6  and `status` = 1
 UNION
-SELECT name, univer, fac, old, vk, instagram, likes, id_user, photo, main_photo FROM `vuser` WHERE id_user=:id7 ORDER BY likes DESC, id_user 
+SELECT name, univer, fac, old, vk, instagram, likes, id_user, photo, main_photo FROM `vuser` WHERE id_user=:id7  and `status` = 1
+UNION
+SELECT name, univer, fac, old, vk, instagram, likes, id_user, photo, main_photo FROM `vuser` WHERE id_user=:id8 ORDER BY likes DESC, id_user 
 ');
 
 
@@ -45,6 +47,7 @@ $result1->bindParam(':id4', $ids[3]);
 $result1->bindParam(':id5', $ids[4]);
 $result1->bindParam(':id6', $ids[5]);
 $result1->bindParam(':id7', $ids[6]);
+$result1->bindParam(':id8', $ids[7]);
 $result1->execute();
 $block1 = array();
 while ($row=$result1->fetch(PDO::FETCH_ASSOC)){

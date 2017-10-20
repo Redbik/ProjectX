@@ -24,8 +24,7 @@ $photoArr = explode(",", $photos);
 if ((!empty($name)) &&
     (!empty($sername)) &&
     (!empty($old)) &&
-    (!empty($univer)) &&
-    (!empty($fac))){
+    (!empty($univer))){
 
     $q = mysqli_query($db, "SELECT vk FROM user WHERE  `vk`='$vk'" );
     if(mysqli_num_rows($q)==0 || $vk =='') {

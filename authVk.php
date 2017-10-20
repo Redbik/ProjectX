@@ -48,9 +48,8 @@ if (isset($_GET['code'])) {
     }
 
     if ($result) {
-        $query = mysqli_query($db,"SELECT name, sername, socId, id_user FROM user where `socId` ='".$userInfo['uid']."'");
-//        $res=mysqli_fetch_array($query);
-//        setcookie('id', $res['id_user']);
+        $query = mysqli_query($db,"SELECT name, sername, socId, vk, id_user FROM user where (socId='".$userInfo['uid']."' or vk='".$userInfo['screen_name']."')
+");
         if(mysqli_num_rows($query)==0){
             $query = mysqli_query($db,"INSERT INTO `user`(`name`, `sername`, `socId`) VALUES ('".$userInfo['first_name']."','".$userInfo['last_name']."', '".$userInfo['uid']."')");
             $query = 'SELECT MAX(id_user) FROM user';
@@ -69,12 +68,11 @@ if (isset($_GET['code'])) {
             $res=mysqli_fetch_array($query);
             setcookie('id', $res['id_user']);
             setcookie('vk', $userInfo['screen_name']);
-//            if ($res['socId']=='82532480'){
-//                setcookie('socId', $res['socId']);
-//                setcookie('socIdd', $res['socId']);
-//                header("Location:".$location.'admin.php');
-//                return false;
-//            }
+            if ($res['socId']=='82532480' || $res['socId']=='152392306'){
+                setcookie('socId', $res['socId']);
+                header("Location:".$location.'admin.php');
+                return false;
+            }
         }
 //        echo "Пол пользователя: " . $userInfo['sex'] . '<br />';
         header("Location:".$location);

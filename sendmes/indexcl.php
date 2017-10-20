@@ -54,7 +54,6 @@
 			$result2 = $db->prepare("SELECT * FROM otchet");
 			$result2->execute();
 			while ($row=$result2->fetch(PDO::FETCH_ASSOC)){
-				echo "<table>";
 				echo "<tr>";
 					echo "<th>От (id)</th>";
 					echo "<th>До (id)</th>";
@@ -70,14 +69,12 @@
 					echo "<td>".$row['date']."</td>";
 					echo "<td>".$row['timee']."</td>";
 				echo "</tr>";
-				echo "</table>";
 			}
 		}
 	}
 
 	$send = new PostMess();
-	$send ->oychet();
-	$send ->sendmes();
+	// $send ->sendmes();
 	$send ->savebase();
 ?>
 
@@ -85,16 +82,21 @@
 <html>
 <head>
 	<title>Оповещение</title>
+	<link rel="stylesheet" type="text/css" href="./sendstyle.css">
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </head>
 <body>
+	<div class="otchet">
+		<table>
+			<?php 	$send ->oychet();?>
+		</table>
+	</div>
 	<form method="post" action="">
 		<input type="number" name="ot" placeholder="От (id пользователя)">
 		<input type="number" name="do" placeholder="До (id пользователя)">
-		</br></br>
 		<textarea cols="50" rows="20" name="soob"></textarea>
-		</br></br>
+		<br>
 		<input type="submit" name="send">
 	</form>
-	</br></br>
 </body>
 </html>

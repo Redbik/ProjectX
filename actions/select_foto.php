@@ -50,36 +50,50 @@
     $QueryMax = "SELECT MAX(id_user) FROM vuser";
     $Max = $db->query($QueryMax)->fetchColumn();
 
-    $QueryCount = "SELECT COUNT(*) FROM user";
+    $QueryCount = "SELECT COUNT(DISTINCT id_user) FROM vuser WHERE status=1";
     $Count = $db->query($QueryCount)->fetchColumn();
-    $arr = json_decode($_COOKIE['FotoBack'],true);
+    if (!(empty($_POST['photoHistory']))){
+            $photoHistory = htmlspecialchars($_POST['photoHistory']);
+            $photoHistory= str_replace('NaN', '', $photoHistory);
+            $photoHistory= str_replace('undefined', '', $photoHistory);
+            $photoHistory = explode(",", $photoHistory);
+
+    }
+
+
     //    $randFoto = rand($Min, $Max);
     //    while (in_array($randFoto,$arr)){
     //        $randFoto = rand($Min, $Max);
     //    }
-    $CountArr = count($arr);
-
+    $CountArr = count($photoHistory);
     if ($Count == $CountArr){
-        setcookie("FotoBack", "", time()-3600);
-        $randFoto = rand($Min, $Max);
+        setcookie("clearPhotoHistory", "1", time()+60, "/");
+        do{
+
+            $randFoto = rand($Min, $Max);
+            $Counts = $db->prepare("SELECT * FROM vuser WHERE id_user=:id and `status` = 1");
+            $Counts->bindParam(':id', $randFoto);
+            $Counts ->execute();
+            $Counts = $Counts->rowCount();
+    } while(in_array($randFoto, $photoHistory) || $Counts=='0');
 
     }else{
-        do{
+        do {
             $randFoto = rand($Min, $Max);
+            $Counts = $db->prepare("SELECT * FROM vuser WHERE id_user=:id and `status` = 1");
+            $Counts->bindParam(':id', $randFoto);
+            $Counts ->execute();
+            $Counts = $Counts->rowCount();
+        }
+        while(in_array($randFoto, $photoHistory) || $Counts==0);
 
-        } while(in_array($randFoto,$arr));
-
-        $arr[] =  $randFoto;
-        $json1 = json_encode($arr);
-        setcookie("FotoBack", $json1,time() + 60);
-
+        // setcookie("FotoBack", $json1,time() + 60);
+        // setcookie("backPhoto", $json1,time() + 60);
     }
 
-//    setcookie('rand', $randFoto)
 $result = $db->prepare('SELECT * FROM vuser WHERE id_user=:id and `status` = 1');
 $result->bindParam(':id', $randFoto);
 $result->execute();
-
 //    $result1 = $db->prepare('UPDATE vuser SET `likes`=`likes`+1 WHERE id_user=:ids');
 //    $result1->bindParam(':ids', $randFoto);
 //    $result1->execute();

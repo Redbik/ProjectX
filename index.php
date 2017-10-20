@@ -55,35 +55,57 @@ if (isset($_COOKIE['id'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="Выбери или стань самой популярной ученицей своего вуза. Регистируйся, чтобы принять участие, выкладывай фотографии и становись первой!">
     <title>Голосование</title>
-    <script src="js/granim.min.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,600&amp;subset=cyrillic" rel="stylesheet">
     <style>
+
+        .preload-photo-inside{
+            width: 100%;
+            height:100%;
+            background: url("./img/preloadPhotoLogo.png") no-repeat;
+            background-size: cover;
+        }
+
         .prel-back{
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: #333;
+            background: #222;
             z-index: 9999999;
             text-align: center;
-            transition: 0s;
         }
 
-        .prel{
-            position: fixed;
-            z-index: 999;
+        .preload-photo{
             width: 300px;
-            height: 300px;
-            left: calc(50% - 150px);
+            height:300px;
+            background: url("./img/preloadPhotoFingers.png");
+            background-size: cover;
+            border-radius: 50%;
+            position: absolute;
             top: calc(50% - 150px);
-            background: #333;
-            border-radius: 30px;
-            overflow: hidden;
-            animation: rotate 6s infinite cubic-bezier(0.51, 0.36, 0.51, 0.75);
-            transition: 0s;
-        }
+            left: calc(50% - 150px);
+            animation: posY 6s infinite linear;
+}
 
         .prel-text{
             transition: 0s;
@@ -98,35 +120,19 @@ if (isset($_COOKIE['id'])){
             animation: text 1.5s infinite cubic-bezier(0.21, 0.15, 0.5, 1.42);
         }
 
-        #preloader{
-            width: 100%;
-            height: 100%;
-            position: relative;
-            z-index: -1;
-            transition: 0s;
-        }
 
         .prel-text span{
             transition: 0s;
             color: #ff1a4b;
         }
 
-        @keyframes rotate {
+        @keyframes posY {
             0%{
-                transform: rotate(0deg);
-                border-radius: 80px;
-            }
-
-            50%{
-                transform: rotate(360deg);
-                border-radius: 50%;
-                width: 290px;
-                height: 290px;
+                background-position-y: 0px;
             }
 
             100%{
-                transform: rotate(720deg);
-                border-radius: 80px;
+                background-position-y: -600px;
             }
         }
 
@@ -143,43 +149,26 @@ if (isset($_COOKIE['id'])){
                 margin-top: 0;
             }
         }
+
+       
     </style>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="prel-back">
-    <div class="prel">
-        <canvas id="preloader"></canvas>
+<div class="overflow">
+
+<div class="prel-back" id="mainLoading">
+    <div class="preload-photo">
+        <div class="preload-photo-inside"></div>
     </div>
     <span class="prel-text"><span>T</span>ofu loading <span>..</span></span>
 </div>
-<script>
-    var granimInstance = new Granim({
-        element: '#preloader',
-        name: 'radial-gradient',
-        direction: 'radial',
-        opacity: [1, 0.5, 0.8],
-        isPausedWhenNotInView: true,
-        states : {
-            "default-state": {
-                gradients: [
-                    ['#e0d7e1', '#92b4ba', '#ccb86f'],
-                    ['#611235', '#6a4590','#1fb9bb'],
-                    ['#ac2259', '#9733EE','#9d207b']
-
-                ],
-                transitionSpeed: 4000
-            }
-        }
-    });
-</script>
 <div class="login-window animated bounceIn">
     <div class="lk-c circle">
         <div class="login-icons">
             <?php
             echo $link = ' <a href="' . $urlVk . '?' . urldecode(http_build_query($paramsVk)) . '"><i class="fa fa-vk"></i></a>';
             echo $link = ' <a href="' . $urlGoogle . '?' . urldecode(http_build_query($paramsGoogle)) . '"><i class="fa fa-google"></i></a>';
-            echo '   <a href=""><i class="fa fa-twitter"></i></a>';
             ?>
         </div>
         <span style="color: #4abde0;">Воити через соцсети</span><br>
@@ -233,7 +222,7 @@ if (isset($_COOKIE['id'])){
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-3">Ссылка на VK</div>
+                <div class="col-md-3 col-sm-3 col-xs-3">Ваш id VK</div>
                 <div class="col-md-9 col-sm-9 col-xs-9">
                     <div class="maskVk">vk.com/</div> <input type="text" name="vk" class="vk-mask" value="<?php
                     echo $vk;
@@ -344,21 +333,22 @@ if (isset($_COOKIE['id'])){
                 </div>
                 <div class="personal-info">
                     <div class="info">
-                        <p>
+                        <p class="pName">
                             <?php
-                                echo $name;
-                            ?>,
-                        </p>
-                        <p> 
-                            21
+                                echo $name.",";
+                            ?></p>
+                            <p class="pOld"> 
+                            <?php
+                                echo $old;
+                            ?>
                         </p>
                         <br>
-                        <p>
+                        <p class="pUniver">
                             <?php
-                                echo $univer;
-                            ?>, 
+                                echo $univer.",";
+                            ?>
                         </p>
-                        <p>
+                        <p class="pFac">
                             <?php
                             echo $fac;
                             ?>
@@ -373,13 +363,13 @@ if (isset($_COOKIE['id'])){
 
 
             <div class="menu-point hidden-sm hidden-xs">
-                <i class="fa fa-heart"></i>
+                <i class="fa fa-heart" data-content="Общее количество лайков, полученных в ходе голосования." data-trigger="hover" data-toggle="popover" data-placement="bottom"></i>
                 <span><?php
                     echo $userLikes;
                     ?></span>
-                <i class="fa fa-camera"></i>
+                <i class="fa fa-camera" data-content="Количество фотографий в личном кабинете." data-trigger="hover" data-toggle="popover" data-placement="bottom"></i>
                 <span>5</span>
-                <i class="fa fa-globe"></i>
+                <i class="fa fa-globe" title="Позиция в общем Топе" data-content="Ты занимаешь <?php echo $top;?> место среди всех участниц." data-trigger="hover" data-toggle="popover" data-placement="bottom"></i>
                 <span><?php
                     echo $top;
                     ?></span>
@@ -390,17 +380,17 @@ if (isset($_COOKIE['id'])){
 
             <div class="menu-point mobile visible-sm visible-xs">
                 <div class="col-xs-4">
-                    <i class="fa fa-heart"></i> <br>
+                    <i class="fa fa-heart" data-content="Общее количество лайков, полученных в ходе голосования." data-trigger="hover" data-toggle="popover" data-placement="bottom" ></i> <br>
                     <span><?php
                         echo $userLikes;
                         ?></span>
                 </div>
                 <div class="col-xs-4">
-                    <i class="fa fa-camera"></i> <br>
+                    <i class="fa fa-camera" data-content="Количество фотографий в личном кабинете." data-trigger="hover" data-toggle="popover" data-placement="bottom"></i> <br>
                     <span>5</span>
                 </div>
-                <div class="col-xs-4">
-                    <i class="fa fa-globe"></i> <br>
+                <div class="col-xs-4" >
+                    <i class="fa fa-globe" title="Позиция в общем Топе" data-content="Ты занимаешь <?php echo $top;?> место среди всех участниц." data-trigger="hover" data-toggle="popover" data-placement="bottom" ></i> <br>
                     <span><?php
                         echo $top;
                         ?></span>
@@ -488,7 +478,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
                         <?php
                         echo $link = ' <a href="' . $urlVk . '?' . urldecode(http_build_query($paramsVk)) . '"><i class="fa fa-vk"></i></a>';
                         echo $link = ' <a href="' . $urlGoogle . '?' . urldecode(http_build_query($paramsGoogle)) . '"><i class="fa fa-google"></i></a>';
-                        echo '   <a href=""><i class="fa fa-twitter"></i></a>';
+                       
                         ?>
 
                     </div>
@@ -499,7 +489,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
 
                 </canvas>
                 <h2 id="canvas-logo">Добро пожаловать!</h2>
-                <h3>Выбери самую популярную студентку твоего Вуза или... </h3>
+                <h1 style="font-size: 0.5em;">Выбери самую популярную студентку твоего Вуза или... </h1>
                 <h2>стань ею</h2>
             </div>
             <div class="slogan hidden-sm hidden-xs">
@@ -536,7 +526,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         </div>
         <div class="container-fluid ">
             <div class="col-md-3 top-padding univers" style="color: #000;">
-                <div class="soon"  data-content="Скоро появится возможность просмотра участниц именно твоего вуза! Следи за обновлениями чтобы не пропустить!" data-trigger="hover" data-toggle="popover" data-placement="bottom">
+                <div class="soon"  data-content="Скоро появится возможность просмотра участниц именно твоего вуза! Чем больше Вас, тем больше интересных обновлений будет добавляться на сайт. Регистрируйся, оценивай участниц и следи за обновлениями!" data-trigger="hover" data-toggle="popover" data-placement="bottom">
                     <div>COMING SOON <BR>
                         <span>...</span>
                     </div>
@@ -568,18 +558,24 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
             <div class="col-md-6 top-padding">
                 <div class="images" id="like-photo">
 
-                    <!--S L I D E R   B O O T S T R A P ----------------------------------------->
+                    <!--S L I D E R   B O O T S T R A P -------------------------->
                     <div id="carousel_13" class="carousel slide animated">
+                        <div class="preload-photo">
+                             <div class="preload-photo-inside">
+                                    
+                            </div>       
+                        </div>
                         <div class="about animated fadeIn">
                             <p class="about-name">Карина</p><span class="about-old">,23</span> <br>
                             <p class="about-uni">Рэу им. Г.В. Плеханова,</p> <span class="about-fac">Маркетинг</span> <br>
-                            <a href="" class="about-vk"><i class="fa fa-vk contacts"></i></a>
-                            <a href="" class="about-inst"><i class="fa fa-instagram contacts"></i></a>
+                            <a href="" class="about-vk" target="_blanc"><i class="fa fa-vk contacts"></i></a>
+                            <a href="" class="about-inst" target="_blanc"><i class="fa fa-instagram contacts"></i></a>
+                            <ol class="carousel-indicators">
+                            </ol>
                         </div>
                         <li class="clone" style="display:none;" data-target="#carousel_13" data-slide-to="0"></li>
 
-                        <ol class="carousel-indicators">
-                        </ol>
+                        
                         <div class="item clone ">
                             <div class="image animated"  style="animation-duration: 500ms">
 
@@ -593,12 +589,12 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
                                 <div class="image-panel">
                                     <i class="fa fa-angle-right" style="padding-left: 9px;"></i>
                                 </div>
-                                <span>Если тебе понравилась <br>участница, жми</span>
-                                <div class="image-panel">
+                                <span class="hidden-xs"->Если тебе понравилась <br>участница, жми</span>
+                                <div class="image-panel hidden-xs">
                                     <i class="fa fa-heart" style="font-size: 3em; padding-top: 21px"></i>
                                 </div>
-                                <span>Случайно переключили? Не беда, жми</span>
-                                <div class="image-panel">
+                                <span class="hidden-xs">Случайно переключили? Не беда, жми</span>
+                                <div class="image-panel hidden-xs">
                                     <i class="fa fa-angle-left backFoto" style="padding-right: 9px;"></i>
                                 </div>
 
@@ -639,13 +635,13 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
                 <h2>-МИСС Tofu!-</h2>
                 <div class="images">
 
-                    <!--S L I D E R   B O O T S T R A P ----------------------------------------->
+                    <!--S L I D E R   B O O T S T R A P ------------------>
                     <div id="carousel_firsttop" class="carousel slide">
                         <div class="about animated slideInDown">
                             <p class="about-name">Карина</p><span class="about-old">,23</span> <br>
                             <p class="about-uni">Рэу им. Г.В. Плеханова,</p> <span class="about-fac">Маркетинг</span> <br>
-                            <a href="" class="about-vk"><i class="fa fa-vk contacts"></i></a>
-                            <a href="" class="about-inst"><i class="fa fa-instagram contacts"></i></a>
+                            <a href="" class="about-vk" target="_blanc"><i class="fa fa-vk contacts"></i></a>
+                            <a href="" class="about-inst" target="_blanc"><i class="fa fa-instagram contacts"></i></a>
                         </div>
                         <li class="clone" style="display:none;" data-target="#carousel_firsttop" data-slide-to="0"></li>
 
@@ -674,13 +670,13 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
                     <div class="col-md-4 col-sm-4 col-xs-12 clone">
                         <div class="images">
 
-                            <!--S L I D E R   B O O T S T R A P ----------------------------------------->
+                            <!--S L I D E R   B O O T S T R A P ---------------->
                             <div id="carousel_5" class="carousel slide">
                                 <div class="about animated slideInDown">
                                     <p class="about-name">Карина</p><span class="about-old">,23</span> <br>
                                     <p class="about-uni">Рэу им. Г.В. Плеханова,</p> <span class="about-fac">Маркетинг</span> <br>
-                                    <a href="" class="about-vk"><i class="fa fa-vk contacts"></i></a>
-                                    <a href="" class="about-inst"><i class="fa fa-instagram contacts"></i></a>
+                                    <a href="" class="about-vk" target="_blanc"><i class="fa fa-vk contacts"></i></a>
+                                    <a href="" class="about-inst" target="_blanc"><i class="fa fa-instagram contacts"></i></a>
                                 </div>
                                 <ol class="carousel-indicators">
                                     <li class="clone" style="display:none;" data-target="#carousel_13" data-slide-to="1"></li>
@@ -703,15 +699,28 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         </div>
     </div>
 
-<div class="footer"></div>
+<div class="footer">
+    <div class="insta-contact">
+        <div class="insta-logo"></div>
+        <span><a href="" target="_blanc">TOOFUOFFICIAL</a></span>
+    </div>
+    <span>
+        <br>
+    По вопросам поддержки и предложениям:   <br>
+    <a href="https://vk.com/nisalay" target="_blanc">vk.com/nisalay,</a> <br>
+    <a href="https://vk.com/id152392306" target="_blanc">vk.com/id152392306 </a><br>
+    <br> &#169;А.А. Азарян, Д.М. Дударев
+    </span>
+
+</div>
 <div class="back-modal animated" id="auth-window" style="background: rgba(255, 255, 255, 0.61); z-index: 999999"></div>
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/nprogress.css">
 <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
-<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500&amp;subset=cyrillic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lobster&amp;subset=cyrillic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
@@ -719,12 +728,10 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/jquery.cookie/jquery.cookie.js"></script>
-<script src="js/jquery.touchSwipe.min.js"></script>
 <script src="js/jquery.maskedinput.js"></script>
 <script src="js/nprogress.js"></script>
 <script src="js/list_univers.js"></script>
-<!--<script src="js/translit.js"></script>-->
-
+<script src="js/granim.min.js"></script>
 <script src="js/lk.js"></script>
 <script src="js/top.js"></script>
 
@@ -803,16 +810,22 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
 
 
     function select_foto() {
-//        var idfoto = $("#like-photo .carousel-inner .item input").val();
-//        if (idfoto==undefined || idfoto==''){
-//            alert('ошибочка');
-//            select_foto();
-//            return;
-//        }
+        // var ccc= $.cookie('strlen');            
+        // alert(ccc);
+        // $.cookie('bla', 'nnn');
+        if ($.cookie('clearPhotoHistory')==1){
+            $.cookie('clearPhotoHistory', null, {path:'/'});
+            sessionStorage.removeItem('photoHistory');
+            // sessionStorage['photoHistory']=0;
+        };
 
+        var idfoto = $("#like-photo .carousel-inner .item input").val();
+            sessionStorage['photoHistory'] = sessionStorage['photoHistory'] + ',' + idfoto;
+            photoHistory = sessionStorage['photoHistory'];
         $.ajax({
             url: './actions/select_foto.php',
             type: 'POST',
+            data: {'photoHistory':photoHistory},
             dataType: 'json',
             cache: false,
             success: function (data) {
@@ -836,10 +849,11 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
                     $("#like-photo").find(".about-old").text(data[i].old);
                     $("#like-photo").find(".about-uni").text(data[i].univer + ', ');
                     $("#like-photo").find(".about-fac").text(data[i].fac);
-                    if (data[i].instagram == '')
+                    if (data[i].instagram == ''){
                         $("#like-photo").find(".about-inst").hide();
+                    }
                     else
-                        $("#like-photo").find(".about-inst").attr('href', 'https://instagram.com/' + data[i].instagram);
+                        $("#like-photo").find(".about-inst").show().attr('href', 'https://instagram.com/' + data[i].instagram);
                     if (data[i].vk == '')
                         $("#like-photo").find(".about-vk").hide();
                     else
@@ -902,19 +916,22 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
     }
 
     $(".image-panel .fa-angle-right").click(function () {
-        select_foto();
-        var idfoto = $("#like-photo .carousel-inner .item input").val();
 
+        select_foto();
         $('#like-photo .carousel-inner').children(":not(a)").remove();
         $('#like-photo ol').children().remove();
 
     });
 
     function back_foto() {
+
+        var idfoto = $("#like-photo .carousel-inner .item input").val();
+            photoHistory = sessionStorage['photoHistory'];
         $.ajax({
             url: './actions/back_foto.php',
             type: 'POST',
             dataType: 'json',
+            data:{"photoHistory": photoHistory},
             cache: false,
             success: function (data){
                 var slideTo = 0;
@@ -1010,25 +1027,27 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
     });
 
     function like_foto() {
-//        $("#like-photo .item:last-child").addClass("rotateOutUpLeft", function () {
-//        });
 
+        if ($.cookie('clearPhotoHistory')==1){
+            $.cookie('clearPhotoHistory', null, {path:'/'});
+            sessionStorage.removeItem('photoHistory');
+            // sessionStorage['photoHistory']=0;
+        };
         var idfoto = $("#like-photo .carousel-inner .item input").val();
-        if (idfoto==undefined || idfoto==''){
-            select_foto();
-        }
-//        alert(idfoto);
+            sessionStorage['photoHistory'] = sessionStorage['photoHistory'] + ',' + idfoto;
+            photoHistory = sessionStorage['photoHistory'];
+        
         $.ajax({
 
             url: './actions/like_foto.php',
             type: 'POST',
             dataType: 'json',
             cache: false,
-            data: {"idfoto":idfoto},
+            data: {"idfoto":idfoto, "photoHistory":photoHistory},
             success: function (data){
                 $(".backFoto").removeClass("noToch");
 
-//                alert(data);
+      
                 var slideTo = 0;
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].photo == data[0].main_photo)
@@ -1121,8 +1140,10 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         $(".cabinet").show().removeClass("slideOutLeft").addClass("slideInLeft");
         $(".fulltop").removeClass("slideInRight").addClass("slideOutRight");
         $(".likes").removeClass("slideInRight").addClass("slideOutRight");
-        $("body").css('overflow', 'hidden');
+        $(".overflow, body").css('overflow', 'hidden');
         $(".cabinet").css('overflow', 'auto');
+        $(".mobile-panel .check-menu").removeClass("check-menu");
+        $(".mobile-panel .fa-user").addClass("check-menu");
     }
 
     $(".image-panel .fa-heart").click(function () {
@@ -1164,7 +1185,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
             if (h == '0px'){
                 $(".add-photos").animate({
                     minHeight: '270px'
-                }, 10, "linear", function () {
+                }, 200, "linear", function () {
                     $(".cabinet").animate({
                         scrollTop: 9999
                     });
@@ -1173,7 +1194,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
             else{
                 $(".add-photos").animate({
                     minHeight: '0px'
-                }, 10, "easeInQuad");
+                }, 200, "easeInQuad");
             }
 
         });
@@ -1283,7 +1304,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         $(".likes, .fulltop").removeClass("slideInRight").addClass("slideOutRight");
         $(this).hide().parent().next().show();
         $(".scrollTop .fa-angle-up").hide();
-        $("body").css('overflow', 'hidden');
+        $(".overflow, body").css('overflow', 'hidden');
         $(".cabinet").css('overflow', 'auto');
 
     });
@@ -1293,7 +1314,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         $(".cabinet").removeClass("slideInLeft").addClass("slideOutLeft");
         $(this).hide().prev().children().show();
         $(".scrollTop .golike").show();
-        $("body").css('overflow-y', 'auto');
+        $(".overflow, body").css('overflow-y', 'auto');
     });
 
     $(".mobile-panel .fa").click(function () {
@@ -1311,7 +1332,7 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         $(".likes").removeClass("slideOutRight").addClass("slideInRight");
         $(".fulltop").removeClass("slideInRight").addClass("slideOutRight");
         $(".cabinet").removeClass("slideInLeft").addClass("slideOutLeft");
-        $("body").css('overflow-y', 'auto');
+        $(".overflo, body").css('overflow-y', 'auto');
 
     });
 
@@ -1319,8 +1340,8 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         $(".likes").removeClass("slideInRight").addClass("slideOutRight");
         $(".cabinet").removeClass("slideInLeft").addClass("slideOutLeft");
         $(".fulltop").show().removeClass("slideOutRight").addClass("slideInRight");
-        $("body").css('overflow', 'hidden');
-        $(".fulltop").css('overflow', 'auto');
+        $(".overflow, body").css('overflow', 'hidden');
+        $(".fulltop").css('overflow-y', 'scroll');
     });
 
 
@@ -1362,7 +1383,6 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
         img = img.replace(/[\s]+/g, '');
         img = img.translit();
         img = "./users/photos/" + img;
-        alert(img);
         if (img='./users/photos/'){
             img = $(".add-main-photo-form").find("img").attr('src');
         }
@@ -1372,9 +1392,14 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
             data: {"data":img},
             success: function (data) {
 //                alert(img);
-                alert(data);
                 $(".auth-window, .back-modal#auth-window").addClass('bounceOut').hide().removeClass('bounceOut');
                 $(".cabinet").removeClass("blur");
+                $(".pName").text($("input[name=name]").val() + ',');
+                $(".pOld").text($("input[name=old]").val());
+                $(".pUniver").text($("input[name=univer]").val() + ',');
+                $(".pFac").text($("input[name=fac]").val());            
+                $("#lk-photos .col-lg-3:not(.clone, .plus)").remove();
+                sel_photos_lk();
             }
         });
     });
@@ -1495,11 +1520,11 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
             $(".mobile-panel .fa-user-o").remove();
             $(".scrollTop .fa-thumbs-o-up").show();
             $(".scrollTop .golike").hide();
-            $("body").css('overflow', 'hidden');
+            $(".overflow, body").css('overflow', 'hidden');
             $(".cabinet").css('overflow', 'auto');
         }else{
             $(".mobile-panel .fa-plus-square-o").remove();
-            $(".mobile-panel").css('padding-right', '85px');
+            $(".mobile-panel").css('padding-right', '22%');
             $(".cabinet").remove();
             $(".mobile-panel .fa-thumbs-up").addClass("check-menu");
 
@@ -1507,30 +1532,16 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
 
 
 
-        setInterval(add_photos, 100);
-        setInterval(add_main_photo, 100);
+        setInterval(add_photos, 1000);
+        setInterval(add_main_photo, 1000);
         sel_photos_lk();
         list_univers();
-        select_foto();
+        // select_foto();
         sel_top();
         firstTop();
         left_top();
     });
 
-
-    //    $(function() {
-    //        //Keep track of how many swipes
-    //        var count=0;
-    //        //Enable swiping...
-    //        $(".image").swipe( {
-    //            //Single swipe handler for left swipes
-    //            swipeLeft:function() {
-    //                alert(1);
-    //            },
-    //            //Default is 75px, set to 0 for demo so any distance triggers swipe
-    //            threshold:0
-    //        });
-    //    });
 </script>
 <script>
     $(window).on('load', function () {
@@ -1539,5 +1550,5 @@ echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) 
     //    $(".prel").hide();
 </script>
 </body>
-
+</div>
 </html>

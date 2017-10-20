@@ -2,9 +2,9 @@
 
 include ("actions/config.php");
 mysqli_query($db,"SET NAMES 'utf8';");
-$client_id = '433099980847-adf19u61nrl12me0c08ur67rgup0aqjh.apps.googleusercontent.com'; // Client ID
-$client_secret = 'Ccl-2tFCf6lV4aU2IOMu73ZP'; // Client secret
-$redirect_uri = 'http://localhost/www/ProjectX/'; // Redirect URIs
+$client_id = '244093491335-taiq8jgh3955acoddg1v5i0urg0ehh0u.apps.googleusercontent.com'; // Client ID
+$client_secret = '1_ih3AW917hLA1zvPoZUdohf'; // Client secret
+$redirect_uri = 'http://toofu.ru/'; // Redirect URIs
 
 $urlGoogle = 'https://accounts.google.com/o/oauth2/auth';
 
@@ -50,8 +50,10 @@ if (isset($_GET['code'])) {
     }
 
     if ($result) {
+
         $name = $userInfo['name'];
         $sername = $userInfo['name'];
+                setcookie('aa', $userInfo['name']);
         if ((empty($name)))
             return;
         $regexp= "/.* /ui";
@@ -60,7 +62,6 @@ if (isset($_GET['code'])) {
         preg_match($regexp, $sername, $sername);
         $query = mysqli_query($db,"SELECT name, sername, id_user, socId FROM user where `socId`='".$userInfo['id']."'");
 //        $res=mysqli_fetch_array($query);
-//        setcookie('id', $res['id_user']);
         if(mysqli_num_rows($query)==0){
             $query = mysqli_query($db,"INSERT INTO `user`(`name`, `sername`, `socId`) VALUES ('".$name[0]."','".$sername[0]."', '".$userInfo['id']."')");
             $query = 'SELECT MAX(id_user) FROM user';
@@ -86,7 +87,7 @@ if (isset($_GET['code'])) {
         echo "Пол пользователя: " . $userInfo['sex'] . '<br />';
         echo "День Рождения: " . $userInfo['bdate'] . '<br />';
         echo '<img src="' . $userInfo['photo_big'] . '" />'; echo "<br />";
-        header("Location:http://localhost/www/ProjectX");
+        header("Location:".$location);
 
     }
 

@@ -13,3 +13,7 @@ $result = $db->prepare('UPDATE univers SET status=1, name= :name  WHERE  id_univ
 $result->bindParam(":name", $name);
 $result->bindParam(":id_univer", $id_univer);
 $result->execute();
+$result = $db->prepare('INSERT INTO univers (name, status) VALUES (:name, 1)');
+$result->bindParam(":name", $name);
+$result->execute();
+

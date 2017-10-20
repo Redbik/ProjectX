@@ -24,20 +24,20 @@ include ('authVk.php');
 <body>
 
 <?php
-//if (isset($_COOKIE['socId'])!='82532480') {
-//    echo '
-//     <div class="lk-c circle">
-//                    <div class="login-icons">
-//    ';
-//    echo $link = ' <a href="' . $urlVk . '?' . urldecode(http_build_query($paramsVk)) . '"><i class="fa fa-vk"></i></a>';
-////    echo $link = ' <a href="' . $urlGoogle . '?' . urldecode(http_build_query($paramsGoogle)) . '"><i class="fa fa-google"></i></a>';
-//    echo '
-//    </div>
-//                    <span>Воити через VK</span>
-//                </div>
-//    ';
-//    return false;
-//}
+if (isset($_COOKIE['socId'])!='82532480' || isset($_COOKIE['socId'])!='152392306') {
+    echo '
+     <div class="lk-c circle">
+                    <div class="login-icons">
+    ';
+    echo $link = ' <a href="' . $urlVk . '?' . urldecode(http_build_query($paramsVk)) . '"><i class="fa fa-vk"></i></a>';
+//    echo $link = ' <a href="' . $urlGoogle . '?' . urldecode(http_build_query($paramsGoogle)) . '"><i class="fa fa-google"></i></a>';
+    echo '
+    </div>
+                    <span>Воити через VK</span>
+                </div>
+    ';
+    return false;
+}
 ?>
 
 <div class="cabinet" id="lk" style="animation-duration: 600ms;">
@@ -45,17 +45,19 @@ include ('authVk.php');
         <div class="head">
 
             <div class="menu-point">
-                <a href="#add-univer" class="menuli active-menu">
+                <a href="#add-univer" class="menuli ">
                     <span>Проверка вузов</span>
                 </a>
                 <a href="#check" class="menuli ">
                     <span>Проверка фото</span>
                 </a>
-                <a href="#add-photo" class="menuli ">
+                <a href="#add-photo" class="menuli active-menu ">
                     <span>Добавление фоток</span>
                 </a>
             </div>
+            <div class="clearfix"></div>
         </div>
+       
         <div class="container  validate" id="check">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 clone">
                 <div id="carousel_3" class="carousel slide">
@@ -66,7 +68,7 @@ include ('authVk.php');
 
                     <div class="carousel-inner" >
                         <div class="about animated fadeIn">
-                            <p class="about-name">Карина</p><span>,23</span> <br>
+                            <p class="about-name">Карина</p>,<span class="about-old">23</span> <br>
                             <p class="about-uni">Рэу им. Г.В. Плеханова</p>, <span class="about-fac">Маркетинг</span> <br>
                             <a href="" class="about-inst"><i class="fa fa-instagram contacts"></i></a>
                             <a href="" class="about-vk"><i class="fa fa-vk contacts"></i></a>
@@ -91,7 +93,9 @@ include ('authVk.php');
                 <i class="fa fa-plus-square-o"></i>
             </div>
         </div>
-        <div class="container validate" id="add-photo">
+        <div class="container active validate" id="add-photo">
+        
+            
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 clone">
                 <div id="carousel_13" class="carousel slide">
                     <ol class="carousel-indicators">
@@ -99,7 +103,7 @@ include ('authVk.php');
                     </ol>
                     <div class="carousel-inner" >
                         <div class="about animated fadeIn">
-                            <p class="about-name">Карина</p><span>,23</span> <br>
+                            <p class="about-name">Карина</p>,<span class="about-old">23</span> <br>
                             <p class="about-uni">Рэу им. Г.В. Плеханова</p>, <span class="about-fac">Маркетинг</span> <br>
                             <a href="" class="about-inst"><i class="fa fa-instagram contacts"></i></a>
                             <a href="" class="about-vk"><i class="fa fa-vk contacts"></i></a>
@@ -116,12 +120,17 @@ include ('authVk.php');
                 </div>
 
             </div>
-
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+               <label for="add-photo-file">
+                    <i class="fa fa-plus-square-o">
+                    </i>
+                </label>
+            </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 plus">
                 <i class="fa fa-plus-square-o"></i>
             </div>
         </div>
-        <div class="container active validate" id="add-univer">
+        <div class="container  validate" id="add-univer">
             <?php
                 $query = mysqli_query($db, "SELECT name, id_univer FROM univers WHERE status=2");
                 while ($res=mysqli_fetch_array($query)){
@@ -140,43 +149,54 @@ include ('authVk.php');
                     ';
                 }
             ?>
-            ?>
 
         </div>
     </div>
 </div>
-<div class="back-modal" style="display: none"></div>
-<div class="add-photos" style="display: none">
+<div class="back-modal" style="display: none;"></div>
+<div class="add-photos" style="display: none;">
+<input class="urlPhotos" type="text" style="margin: 10px;width: 90%;background: #333; border-radius: 4px; padding-left: 5px; font-family: Arial;">
+
     <div class="container-fluid">
-        <div class="col-sm-4 col-xs-4 clone">
-            <div class="photo">
+            <div class="col-sm-4 col-xs-6 next-add">
+                <i class="fa fa-angle-right"></i>
             </div>
+            <div class="col-sm-4 col-xs-6 clone">
+                <div class="photo">
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-6 plus">
+                <label for="add-photo-file">
+                    <i class="fa fa-plus-square-o">
+                    </i>
+                </label>
 
-        </div>
-        <div class="col-sm-4 col-xs-4 plus">
-            <label for="add-photo-file">
-                <i class="fa fa-plus-square-o">
-                </i>
-            </label>
-
-        </div>
+            </div>
+            <div class="add-photo-fio" style="display: none;">
+                <form class="add-photo-form" enctype="multipart/form-data">
+                    <input type="file" id="add-photo-file" name="userfile">
+                    <input type="text" name="name" placeholder="Имя" >
+                    <input type="text" name="sername" placeholder="Фамилия" >
+                    <input type="number" name="old" placeholder="Возраст">
+                    <input type="text" name="univer" id="univers-mask" autocomplete="off">
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    <div class="univers-list">
+                        <ol>
+                            <li></li>
+                        </ol>
+                    </div>
+                    <input type="text" name="fac" placeholder="Факультет">
+                    <input type="text" name="vk" placeholder="Ссылка на VK">
+                    <input type="text" name="instagram" placeholder="Ссылка на Instagram">
+                    <input type="hidden" class="main_photo_hid" name="main_photo">
+                    <input type="hidden" class="clone-hid" name="photos">
+                </form>
+                <i class="fa fa-address-card ready-add" aria-hidden="true"></i>
+            </div>
+        
 
     </div>
-    <div class="add-photo-fio">
-        <form class="add-photo-form" enctype="multipart/form-data">
-            <input type="file" id="add-photo-file" name="userfile">
-            <input type="text" name="name" placeholder="Имя" >
-            <input type="text" name="sername" placeholder="Фамилия" >
-            <input type="number" name="old" placeholder="Возраст">
-            <input type="text" name="univer" placeholder="ВУЗ">
-            <input type="text" name="fac" placeholder="Факультет">
-            <input type="text" name="vk" placeholder="Ссылка на VK">
-            <input type="text" name="instagram" placeholder="Ссылка на Instagram">
-            <input type="hidden" class="main_photo_hid" name="main_photo">
-            <input type="hidden" class="clone-hid" name="photos">
-        </form>
-        <i class="fa fa-address-card ready-add" aria-hidden="true"></i>
-    </div>
+    
 </div>
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -185,7 +205,6 @@ include ('authVk.php');
 <script src="js/jquery.cookie/jquery.cookie.js"></script>
 <script src="js/check_photo.js"></script>
 <script src="js/list_univers.js"></script>
-<script src="js/translit.js"></script>
 <script>
     String.prototype.translit = (function(){
         var L = {
@@ -210,6 +229,10 @@ include ('authVk.php');
             return this.replace(r, k);
         };
     })();
+
+    $(".next-add").click(function(){
+        $(".add-photo-fio").show();
+    });
 
     $(".add-photos label").hover(function () {
         $(this).children(".fa-plus-square-o").css({
@@ -236,6 +259,28 @@ include ('authVk.php');
         $(choice).addClass('active');
     });
 
+     $(".fa-caret-down").click(function () {
+        if ($(this).next().css('height')=='200px'){
+            $(this).next().show().animate({
+                opacity: 0,
+                height: 0
+            }, 10);
+        }
+        else{
+            $(this).next().show().animate({
+                opacity: 1,
+                height: 200
+            }, 10);
+        }
+    });
+
+     $(".univers-list li").click(function () {
+        $("#univers-mask").val($(this).text());
+        $(".univers-list").animate({
+            opacity: 0,
+            height: 0
+        }, 10);
+    });
 
     $(".validate-panel .fa-times-circle-o, .validate-panel .fa-check-circle-o").click(function () {
         var photoIndex = 0;
@@ -256,23 +301,38 @@ include ('authVk.php');
 </script>
 
 <script>
-    $(".plus .fa-plus-square-o").click(function () {
+    $(".plus .fa-plus-square-o, label[for=add-photo-file]").click(function () {
         $(".add-photos, .back-modal").show();
+        $("body").css("overflow","hidden");
+        $(".add-photos").css("overflow","scroll");
     });
     $(".back-modal").click(function () {
         $(".add-photos, .back-modal").hide();
+        $("body").css("overflow","auto");
     });
     var photos = [];
 
     function add_photos() {
-        var img = $(".add-photo-form").find("input[type=file]").val();
-        if (img!=''){
+        if ($(".add-photo-form").find("input[type=file]").val()!=''){
+            var img = $(".add-photo-form").find("input[type=file]").val();
+        }
+        else{
+            if ($("input.urlPhotos").val()!='' && $("input.urlPhotos").val().indexOf("http") + 1){
+                img= $("input.urlPhotos").val();
+                $("input.urlPhotos").val('');
+            }
+        }
+        if (img!=undefined){
             $(".add-photos .clone").clone(true).insertBefore(".add-photos .plus").removeClass("clone").children().addClass('newPhoto');
-//            $(".add-photo-fio .clone-hid").clone(true).insertBefore(".add-photo-form .clone-hid").removeClass("clone-hid").addClass('newHid');
-            img = img.replace("C:\\fakepath\\","");
-            img = img.replace(/[\s]+/g, '');
-            img = img.translit();
-            img = "./users/photos/" + img;
+
+            if (img.indexOf("C:\\") + 1)
+            {
+                img = img.replace("C:\\fakepath\\","");
+                img = img.replace(/[\s]+/g, '');
+                img = img.translit();
+                img = "./users/photos/" + img;
+            }
+            
             var formData = new FormData($(".add-photo-form")[0]);
             $.ajax({
                 url: "./actions/add-photo-folder.php",
@@ -295,6 +355,7 @@ include ('authVk.php');
                         photos.push(img);
                         $(".add-photo-fio .clone-hid").attr('value',photos);
                     }
+
 //                    $('#add-photo-file').parent().html($('#add-photo-file').parent().html());
                     $(".add-photo-form")[0].reset();
                 }
@@ -310,16 +371,17 @@ include ('authVk.php');
             data: form,
             success: function (data) {
                 $('.add-photo-form')[0].reset();
-                $(".validate#add-photo .col-lg-3:not(.clone, .plus)").remove();
+                $(".validate#add-photo .col-lg-3:not(.clone, .plus, .next-add)").remove();
+
                 sel_users();
-                $(".add-photos .container-fluid .col-sm-4:not(.clone,.plus)").each(function () {
+                $(".add-photo-fio").hide();
+                $(".add-photos .container-fluid .col-sm-4:not(.clone,.plus, .next-add)").each(function () {
                    $(this).remove();
                 });
                 photos = [];
             }
         });
     });
-
 
     function sel_users() {
         $.ajax({
@@ -362,6 +424,7 @@ include ('authVk.php');
 //                        kolPhoto++;
                     }
                     $("#add-photo .plus").prev().find(".about-name").text(data[i].name);
+                    $("#add-photo .plus").prev().find(".about-old").text(data[i].old);            
                     $("#add-photo .plus").prev().find(".about-uni").text(data[i].univer);
                     $("#add-photo .plus").prev().find(".about-fac").text(data[i].fac);
                     $("#add-photo .plus").prev().find(".about-ins").attr('href',(data[i].instagram));
@@ -392,8 +455,10 @@ include ('authVk.php');
     $(".add-photos .photo").click(function () {
        $(".border-main-photo").removeClass("border-main-photo");
        var mainPhoto = $(this).css('background-image');
-       mainPhoto = mainPhoto.replace('url("http://localhost/www/ProjectX/', '');
-       mainPhoto ='./' +  mainPhoto.replace('")', '');
+
+       mainPhoto = mainPhoto.replace(/url\(\"|\"\)/g, '');
+       // if (mainPhoto.indexOf("")) {}
+       // mainPhoto ='./' +  mainPhoto.replace(')', '');
        $(this).addClass("border-main-photo");
         $(".add-photos .main_photo_hid").val(mainPhoto);
     });
@@ -401,9 +466,11 @@ include ('authVk.php');
 
 
     $(function () {
-        setInterval(add_photos, 100);
+        setInterval(add_photos, 1000);
         sel_users();
         check_photo();
+        list_univers();
+
     });
 </script>
 </html>
